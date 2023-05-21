@@ -20,7 +20,7 @@
 
 <p>Se você preferir, você pode configurar neste sistema um outro username e uma outra senha.</p>
 
-<p>Configure seu PHP pelo arquivo php.ini e certifique-se de deixar ativado intl, mbstring e json.</p>
+<p>Configure seu PHP pelo arquivo php.ini e certifique-se de deixar ativado intl e mbstring.</p>
 
 <p>Coloque o diretório login_codeigniter_jquery dentro do endereço DocumentRoot do seu Servidor Apache. Exemplo: coloque dentro de htdocs do XAMPP. Geralmente o DocumentRoot é o diretório htdocs do XAMPP e você pode consultar ou mudar o endereço de DocumentRoot pelo arquivo de configuração do Servidor Apache (exemplo: arquivo httpd.conf).</p>
 
