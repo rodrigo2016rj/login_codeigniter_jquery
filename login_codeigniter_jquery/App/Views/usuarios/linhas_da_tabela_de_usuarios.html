@@ -1,0 +1,41 @@
+{foreach $usuarios as $usuario}
+  {if $usuario@iteration is odd by 1}<tr class="impar">{else}<tr class="par">{/if}
+    <td class="td_tudo" colspan="4">
+      <span>Nome: </span>
+      <a class="link_nome_de_usuario" 
+         href="perfil?id={$usuario['id_do_usuario']}">{$usuario['nome_de_usuario']}</a>
+      <br/>
+      {if $mostrar_email}
+      <span>E-mail: </span>
+      <span class="span_email">{$usuario['email']}</span>
+      <br/>
+      {/if}
+      <span>Cadastrado em: </span>
+      <span class="span_momento_do_cadastro">{$usuario['momento_do_cadastro']}</span>
+      <br/>
+      <span>Tipo: </span>
+      <span class="span_tipo">{$usuario['tipo']}</span>
+    </td>
+    <td class="td_nome_de_usuario">
+      <a class="link_nome_de_usuario" 
+         href="perfil?id={$usuario['id_do_usuario']}">{$usuario['nome_de_usuario']}</a>
+    </td>
+    {if $mostrar_email}
+    <td class="td_email">
+      <span class="span_email">{$usuario['email']}</span>
+    </td>
+    {/if}
+    <td class="td_momento_do_cadastro">
+      <span class="span_momento_do_cadastro">{$usuario['momento_do_cadastro']}</span>
+    </td>
+    <td class="td_tipo">
+      <span class="span_tipo">{$usuario['tipo']}</span>
+    </td>
+  </tr>
+{foreachelse}
+  <tr class="impar">
+    <td id="td_mensagem_da_tabela" colspan="4">
+      <span id="span_mensagem_quando_nao_ha_usuarios">Nenhum usuário foi encontrado, limpe os filtros ou busque por outras informações.</span>
+    </td>
+  </tr>
+{/foreach}

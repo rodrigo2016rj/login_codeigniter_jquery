@@ -1,0 +1,92 @@
+#div_mensagem{
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px dotted #C0C0C0;
+  padding: 10px;
+  width: calc(100% - 2px - 20px); /* fit-content será feito via script */
+  max-width: calc(800px - 2px - 20px);
+  text-align: center;
+  white-space: nowrap;
+  overflow: auto;
+}
+@media(max-width: 640px){
+  #div_mensagem{
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+}
+#div_cadastrar{
+  padding: 20px 25px;
+}
+@media(max-width: 640px){
+  #div_cadastrar{
+    padding: 0px;
+  }
+}
+#h1_titulo_da_pagina{
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  max-width: 1200px;
+  color: #606060;
+  text-align: center;
+}
+@media(max-width: 640px){
+  #h1_titulo_da_pagina{
+    font-size: 17pt;
+  }
+}
+#form_cadastrar{
+  margin-top: 36px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  max-width: 250px;
+  color: #484848;
+}
+@media(max-width: 640px){
+  #form_cadastrar{
+    margin-top: 18px;
+  }
+}
+#form_cadastrar input[type="text"],
+#form_cadastrar input[type="password"]{
+  width: calc(250px - 2px - 10px);
+}
+#div_campo_nome{
+  margin-top: 2px;
+}
+#div_email{
+  margin-top: 20px;
+}
+#div_campo_email{
+  margin-top: 2px;
+}
+#div_senha{
+  margin-top: 20px;
+}
+#div_campo_senha{
+  margin-top: 2px;
+}
+#div_senha_novamente{
+  margin-top: 20px;
+}
+#div_campo_senha_novamente{
+  margin-top: 2px;
+}
+#fieldset_sexo{
+  margin-top: 20px;
+  min-width: calc(250px - 2px - 12px - 12px);
+  max-width: calc(250px - 2px - 12px - 12px);
+}
+.label_com_botao_de_radio_sexo{
+  margin-left: 20px;
+  cursor: pointer;
+}
+.label_com_botao_de_radio_sexo:first-child{
+  margin-left: 0px;
+}
+#div_botao_cadastrar{
+  margin-top: 22px;
+  text-align: center;
+}

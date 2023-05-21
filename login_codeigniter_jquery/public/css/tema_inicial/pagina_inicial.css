@@ -1,0 +1,40 @@
+#div_pagina_inicial{
+  padding: 0px 20px;
+}
+@media(max-width: 640px){
+  #div_pagina_inicial{
+    padding: 0px;
+  }
+}
+#h1_titulo_da_pagina{
+  text-indent: 76px;
+}
+@media(max-width: 640px){
+  #h1_titulo_da_pagina{
+    font-size: 17pt;
+    text-indent: 38px;
+  }
+}
+#div_sobre_este_sistema{
+  margin-top: 26px;
+  text-indent: 76px;
+}
+@media(max-width: 640px){
+  #div_sobre_este_sistema{
+    margin-top: 15px;
+    text-indent: 38px;
+  }
+}
+#div_sobre_este_sistema>p{
+  margin-top: 26px;
+  line-height: 26px;
+}
+@media(max-width: 640px){
+  #div_sobre_este_sistema>p{
+    margin-top: 18px;
+    line-height: 22px;
+  }
+}
+#div_sobre_este_sistema>p:first-child{
+  margin-top: 0px;
+}

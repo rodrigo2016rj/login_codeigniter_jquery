@@ -1,0 +1,25 @@
+#div_mensagem{
+  margin-bottom: 20px;
+  border-bottom: 1px solid #D0D0D0;
+  padding-bottom: 20px;
+  min-width: 100%;
+  max-width: 100%;
+  line-height: 22px;
+}
+#h1_titulo_da_pagina{
+  word-wrap: break-word;
+}
+@media(max-width: 640px){
+  #h1_titulo_da_pagina{
+    font-size: 17pt;
+  }
+}
+#form_editar_tipo_de_usuario{
+  margin-top: 20px;
+}
+#div_caixa_de_selecao_tipo_de_usuario{
+  margin-top: 2px;
+}
+#div_botao_editar{
+  margin-top: 20px;
+}

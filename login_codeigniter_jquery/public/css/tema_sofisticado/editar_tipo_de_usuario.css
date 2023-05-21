@@ -1,0 +1,59 @@
+#div_mensagem{
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px dotted #C0C0C0;
+  padding: 10px;
+  width: calc(100% - 2px - 20px); /* fit-content será feito via script */
+  max-width: calc(800px - 2px - 20px);
+  text-align: center;
+  white-space: nowrap;
+  overflow: auto;
+}
+@media(max-width: 640px){
+  #div_mensagem{
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+}
+#div_editar_tipo_de_usuario{
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+@media(max-width: 640px){
+  #div_editar_tipo_de_usuario{
+    padding: 0px;
+  }
+}
+#h1_titulo_da_pagina{
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  max-width: 800px;
+  color: #606060;
+  text-align: center;
+  word-wrap: break-word;
+}
+@media(max-width: 640px){
+  #h1_titulo_da_pagina{
+    font-size: 17pt;
+  }
+}
+#form_editar_tipo_de_usuario{
+  margin-top: 36px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  max-width: 212px;
+  color: #484848;
+}
+@media(max-width: 640px){
+  #form_editar_tipo_de_usuario{
+    margin-top: 26px;
+  }
+}
+#div_caixa_de_selecao_tipo_de_usuario{
+  margin-top: 2px;
+}
+#div_botao_editar{
+  margin-top: 30px;
+}

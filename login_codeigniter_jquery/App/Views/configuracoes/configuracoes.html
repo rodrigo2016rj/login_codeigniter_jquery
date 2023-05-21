@@ -1,0 +1,153 @@
+{extends file='../template.html'}
+
+{block name=head_especifico}
+<link href="/css/{$visual_escolhido_template}/configuracoes.css" type="text/css" rel="stylesheet"/>
+<script src="/script/configuracoes/ajax.js"></script>
+<script src="/script/configuracoes/controles.js"></script>
+<script src="/script/configuracoes/interacoes.js"></script>
+<title>Configurações</title>
+{/block}
+
+{block name=pagina_do_sistema}
+<span id="span_aba_inicial" class="tag_oculta">{$aba_inicial}</span>
+{if $mensagem_da_pagina}
+<div id="div_mensagem">
+  <span id="span_mensagem">{$mensagem_da_pagina}</span>
+</div>
+{/if}
+{if $usuario_esta_logado_template and $mostrar_configuracoes}
+<div id="div_configuracoes">
+  <h1 id="h1_titulo_da_pagina">
+    <span>Configurações</span>
+  </h1>
+  <div id="div_local_das_abas">
+    <div id="div_rotulo_das_abas">
+      <div id="div_rotulo_da_aba_preferencias" class="rotulo_da_aba rotulo_da_aba_selecionada">
+        <span id="span_rotulo_da_aba_preferencias">Preferências</span>
+      </div>
+      <div id="div_rotulo_da_aba_perfil" class="rotulo_da_aba">
+        <span id="span_rotulo_da_aba_perfil">Perfil</span>
+      </div>
+      <div id="div_rotulo_da_aba_seguranca" class="rotulo_da_aba">
+        <span id="span_rotulo_da_aba_seguranca">Segurança</span>
+      </div>
+    </div>
+    <div id="div_aba_preferencias" class="conteudo_da_aba">
+      <h2 id="h2_aba_preferencias">
+        <span>Editar preferências</span>
+      </h2>
+      <div id="div_escolher_fuso_horario">
+        <div id="div_rotulo_fuso_horario">
+          <span id="span_rotulo_fuso_horario">Escolha um fuso horário:</span>
+          <span id="span_escolher_fuso_horario" class="mensagem_da_operacao"></span>
+        </div>
+        <div id="div_caixa_de_selecao_fuso_horario">
+          <select id="caixa_de_selecao_fuso_horario" name="fuso_horario">
+            {foreach $fuso_horarios as $fuso_horario}
+              <option value="{$fuso_horario@key}" 
+                      {if $fuso_horario_atual == $fuso_horario@key}selected="selected"{/if}>{$fuso_horario}</option>
+            {/foreach}
+          </select>
+        </div>
+      </div>
+      <div id="div_escolher_visual">
+        <div id="div_rotulo_visual">
+          <span id="span_rotulo_visual">Escolha um visual:</span>
+          <span id="span_escolher_visual" class="mensagem_da_operacao"></span>
+        </div>
+        <div id="div_caixa_de_selecao_visual">
+          <select id="caixa_de_selecao_visual" name="visual">
+            {foreach $visuais as $visual}
+              <option value="{$visual@key}" 
+                      {if $visual_atual == $visual@key}selected="selected"{/if}>{$visual}</option>
+            {/foreach}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div id="div_aba_perfil" class="conteudo_da_aba tag_oculta">
+      <h2 id="h2_aba_perfil">
+        <span>Editar perfil</span>
+      </h2>
+      <div id="div_editar_nome_de_usuario">
+        <div id="div_rotulo_editar_nome_de_usuario">
+          <span id="span_rotulo_editar_nome_de_usuario">Editar nome de usuário:</span>
+          <span id="span_editar_nome_de_usuario" class="mensagem_da_operacao"></span>
+        </div>
+        <div id="div_campo_editar_nome_de_usuario">
+          <input type="text" id="campo_editar_nome_de_usuario" name="nome_de_usuario" 
+                 value="{$nome_de_usuario}" placeholder="nome de usuário"/>
+          <button id="botao_salvar_nome_de_usuario">Salvar</button>
+        </div>
+      </div>
+      <div id="div_exibir_nao_exibir_sexo">
+        <div id="div_rotulo_exibir_nao_exibir_sexo">
+          <span id="span_rotulo_exibir_nao_exibir_sexo">Exibir informação do sexo no perfil?</span>
+          <span id="span_exibir_nao_exibir_sexo" class="mensagem_da_operacao"></span>
+        </div>
+        <div id="div_caixa_de_checagem_exibir_nao_exibir_sexo">
+          {if $exibir_sexo_no_perfil === 'sim'}
+          <input type="checkbox" id="caixa_de_checagem_exibir_nao_exibir_sexo" checked="checked"
+                 name="exibir_sexo_no_perfil"/>
+          {else}
+          <input type="checkbox" id="caixa_de_checagem_exibir_nao_exibir_sexo" 
+                 name="exibir_sexo_no_perfil"/>
+          {/if}
+          <label for="caixa_de_checagem_exibir_nao_exibir_sexo">Exibir</label>
+        </div>
+      </div>
+      <div id="div_exibir_nao_exibir_email">
+        <div id="div_rotulo_exibir_nao_exibir_email">
+          <span id="span_rotulo_exibir_nao_exibir_email">Exibir endereço de e-mail no perfil?</span>
+          <span id="span_exibir_nao_exibir_email" class="mensagem_da_operacao"></span>
+        </div>
+        <div id="div_caixa_de_checagem_exibir_nao_exibir_email">
+          {if $exibir_email_no_perfil === 'sim'}
+          <input type="checkbox" id="caixa_de_checagem_exibir_nao_exibir_email" checked="checked"
+                 name="exibir_email_no_perfil"/>
+          {else}
+          <input type="checkbox" id="caixa_de_checagem_exibir_nao_exibir_email" 
+                 name="exibir_email_no_perfil"/>
+          {/if}
+          <label for="caixa_de_checagem_exibir_nao_exibir_email">Exibir</label>
+        </div>
+      </div>
+    </div>
+    <div id="div_aba_seguranca" class="conteudo_da_aba tag_oculta">
+      <h2 id="h2_aba_seguranca">
+        <span>Opções de segurança</span>
+      </h2>
+      <div id="div_mudar_senha">
+        <div id="div_rotulo_mudar_senha">
+          <span id="span_rotulo_mudar_senha">Mudar senha</span>
+        </div>
+        <div id="div_rotulo_digite_sua_senha_atual">
+          <span>Digite a sua senha atual:</span>
+        </div>
+        <div id="div_campo_senha_atual">
+          <input id="campo_senha_atual" name="senha_atual" type="password" placeholder="senha atual"/>
+        </div>
+        <div id="div_rotulo_digite_a_nova_senha">
+          <span>Digite a nova senha:</span>
+        </div>
+        <div id="div_campo_nova_senha">
+          <input id="campo_nova_senha" name="nova_senha" type="password" placeholder="nova senha"/>
+        </div>
+        <div id="div_rotulo_digite_a_nova_senha_novamente">
+          <span>Digite a nova senha novamente:</span>
+        </div>
+        <div id="div_campo_nova_senha_novamente">
+          <input id="campo_nova_senha_novamente" name="nova_senha_novamente" type="password" 
+                 placeholder="nova senha novamente"/>
+        </div>
+        <div id="div_botao_mudar_senha">
+          <button type="button" id="botao_mudar_senha">Mudar Senha</button>
+          <span id="span_mudar_senha" class="mensagem_da_operacao"></span>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="campo_anti_csrf" name="chave_anti_csrf" value="{$chave_anti_csrf}"/>
+  </div>
+</div>
+{/if}
+{/block}

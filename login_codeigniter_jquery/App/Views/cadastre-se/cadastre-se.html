@@ -1,0 +1,84 @@
+{extends file='../template.html'}
+
+{block name=head_especifico}
+<link href="/css/{$visual_escolhido_template}/cadastre-se.css" type="text/css" rel="stylesheet"/>
+<script src="/script/cadastre-se/interacoes.js"></script>
+<title>Cadastre-se</title>
+{/block}
+
+{block name=pagina_do_sistema}
+{if $mensagem_da_pagina}
+<div id="div_mensagem">
+  <span id="span_mensagem">{$mensagem_da_pagina}</span>
+</div>
+{/if}
+<div id="div_cadastrar">
+  <h1 id="h1_titulo_da_pagina">
+    <span>Cadastre-se</span>
+  </h1>
+  <form id="form_cadastrar" method="post" action="/cadastre-se/cadastrar">
+    <div id="div_nome">
+      <div id="div_label_nome">
+        <label id="label_nome" for="campo_nome">
+          <span>Nome de usuário</span>
+        </label>
+      </div>
+      <div id="div_campo_nome">
+        <input type="text" id="campo_nome" name="nome_de_usuario" value="{$nome_de_usuario}" 
+               autocomplete="off"/>
+      </div>
+    </div>
+    <div id="div_email">
+      <div id="div_label_email">
+        <label id="label_email" for="campo_email">
+          <span>E-mail</span>
+        </label>
+      </div>
+      <div id="div_campo_email">
+        <input type="text" id="campo_email" name="email" value="{$email}" autocomplete="off"/>
+      </div>
+    </div>
+    <div id="div_senha">
+      <div id="div_label_senha">
+        <label id="label_senha" for="campo_senha">
+          <span>Senha</span>
+        </label>
+      </div>
+      <div id="div_campo_senha">
+        <input type="password" id="campo_senha" name="senha" autocomplete="off"/>
+      </div>
+    </div>
+    <div id="div_senha_novamente">
+      <div id="div_label_senha_novamente">
+        <label id="label_senha_novamente" for="campo_senha_novamente">
+          <span>Senha novamente</span>
+        </label>
+      </div>
+      <div id="div_campo_senha_novamente">
+        <input type="password" id="campo_senha_novamente" name="senha_novamente" autocomplete="off"/>
+      </div>
+    </div>
+    <fieldset id="fieldset_sexo">
+      <legend>Sexo</legend>
+      <div id="div_lista_de_sexos">
+      {foreach $array_sexos as $sexo_identificador => $sexo_valor}
+        <label class="label_com_botao_de_radio_sexo">
+          {if $sexo_identificador === $sexo}
+            <input type="radio" name="sexo" checked="checked" value="{$sexo_identificador}" 
+                   autocomplete="off"/>
+            <span>{$sexo_valor}</span>
+          {else}
+            <input type="radio" name="sexo" value="{$sexo_identificador}" autocomplete="off"/>
+            <span>{$sexo_valor}</span>
+          {/if}
+        </label>
+      {/foreach}
+      </div>
+    </fieldset>
+    <div id="div_botao_cadastrar">
+      <input type="hidden" id="campo_anti_csrf" name="chave_anti_csrf" value="{$chave_anti_csrf}"/>
+      <input type="submit" id="botao_cadastrar" value="Cadastrar"/>
+    </div>
+  </form>
+</div>
+{/block}

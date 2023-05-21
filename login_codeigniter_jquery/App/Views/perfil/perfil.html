@@ -1,0 +1,63 @@
+{extends file='../template.html'}
+
+{block name=head_especifico}
+<link href="/css/{$visual_escolhido_template}/perfil.css" type="text/css" rel="stylesheet"/>
+<script src="/script/perfil/interacoes.js"></script>
+<title>Perfil {$usuario['nome_de_usuario']}</title>
+{/block}
+
+{block name=pagina_do_sistema}
+<span id="span_id_referencia" class="tag_oculta">{$id_referencia_template}</span>
+{if $mensagem_da_pagina}
+<div id="div_mensagem">
+  <span id="span_mensagem">{$mensagem_da_pagina}</span>
+</div>
+{/if}
+{if $usuario_esta_logado_template and $usuario['nome_de_usuario']}
+<div id="div_perfil">
+  <h1 id="h1_titulo_da_pagina">
+    <span>{$usuario['nome_de_usuario']}</span>
+  </h1>
+  <div id="div_informacoes_do_usuario">
+    <div id="div_local_do_id_do_usuario">
+      <span id="span_rotulo_do_id_do_usuario">ID</span>
+      <div id="div_id_do_usuario">
+        <span id="span_id_do_usuario">{$usuario['id']}</span>
+      </div>
+    </div>
+    <div id="div_local_do_tipo_do_usuario">
+      <span id="span_rotulo_do_tipo_do_usuario">Tipo</span>
+      {if $mostrar_link_editar_tipo_de_usuario}
+      <a id="link_editar_tipo_de_usuario" href="editar_tipo_de_usuario?id={$usuario['id']}"
+         title="Editar tipo de usuário"></a>
+      {/if}
+      <div id="div_tipo_do_usuario">
+        <span id="span_tipo_do_usuario">{$usuario['tipo']}</span>
+      </div>
+    </div>
+    {if $usuario['exibir_sexo_no_perfil']}
+    <div id="div_local_do_sexo_do_usuario">
+      <span id="span_rotulo_do_sexo_do_usuario">Sexo</span>
+      <div id="div_sexo_do_usuario">
+        <span id="span_sexo_do_usuario">{$usuario['sexo']}</span>
+      </div>
+    </div>
+    {/if}
+    {if $usuario['exibir_email_no_perfil']}
+    <div id="div_local_do_email_do_usuario">
+      <span id="span_rotulo_do_email_do_usuario">E-mail</span>
+      <div id="div_email_do_usuario">
+        <span id="span_email_do_usuario">{$usuario['email']}</span>
+      </div>
+    </div>
+    {/if}
+    <div id="div_local_do_momento_do_cadastro_do_usuario">
+      <span id="span_rotulo_do_momento_do_cadastro_do_usuario">Cadastrado em</span>
+      <div id="div_momento_do_cadastro_do_usuario">
+        <span id="span_momento_do_cadastro_do_usuario">{$usuario['momento_do_cadastro']}</span>
+      </div>
+    </div>
+  </div>
+</div>
+{/if}
+{/block}

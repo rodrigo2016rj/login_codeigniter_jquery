@@ -1,0 +1,303 @@
+body{
+  margin: 0px;
+  padding: 20px;
+  background: #F0F0FF;
+  color: #404070;
+  font-family: Verdana, Tahoma, Times New Roman, serif;
+  font-size: 12pt;
+}
+
+/* Cabeçalho e menus do sistema: */
+#div_cabecalho_template{
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid #7070B8;
+  padding: 8px 10px;
+  width: calc(920px - 2px - 20px);
+  max-width: calc(100% - 2px - 20px);
+  background-color: #F8F8FF;
+  overflow: hidden;
+  box-shadow: 4px 4px 4px 1px #DDD;
+}
+@media(max-width: 640px){
+  #div_cabecalho_template{
+    overflow: auto;
+  }
+}
+#nav_menu_01_template{
+  float: left;
+  min-width: calc(100% - 350px);
+  max-width: calc(100% - 350px);
+}
+@media(max-width: 640px){
+  #nav_menu_01_template{
+    float: none;
+    min-width: 0px;
+    max-width: none;
+    white-space: nowrap;
+  }
+}
+.opcao_do_menu_01{
+  margin-left: 20px;
+  color: #505098;
+  font-size: 11pt;
+}
+.opcao_do_menu_01:first-child{
+  margin-left: 0px;
+}
+.opcao_do_menu_01:visited,
+.opcao_do_menu_01:hover{
+  color: #505098;
+}
+#nav_menu_02_template{
+  float: left;
+  min-width: 350px;
+  max-width: 350px;
+  text-align: right;
+}
+@media(max-width: 640px){
+  #nav_menu_02_template{
+    float: none;
+    margin-top: 8px;
+    min-width: 0px;
+    max-width: none;
+    text-align: left;
+    white-space: nowrap;
+  }
+}
+.opcao_do_menu_02{
+  margin-left: 20px;
+  color: #505098;
+  font-size: 11pt;
+}
+.opcao_do_menu_02:first-child{
+  margin-left: 0px;
+}
+.opcao_do_menu_02:visited,
+.opcao_do_menu_02:hover{
+  color: #505098;
+}
+#div_tronco_template{
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid #7070B8;
+  padding: 20px;
+  width: calc(920px - 2px - 40px);
+  max-width: calc(100% - 2px - 40px);
+  background-color: #F8F8FF;
+  box-shadow: 4px 4px 4px 1px #DDD;
+}
+#div_rodape_template{
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid #7070B8;
+  padding: 30px 0px;
+  width: calc(920px - 2px);
+  max-width: calc(100% - 2px);
+  background-color: #F8F8FF;
+  color: #282860;
+  font-size: 11pt;
+  box-shadow: 4px 4px 4px 1px #DDD;
+}
+#div_autor_do_sistema_template{
+  text-align: center;
+}
+@media(max-width: 450px){
+  #div_autor_do_sistema_template{
+    margin-right: auto;
+    margin-left: auto;
+    min-width: 200px;
+    max-width: 200px;
+  }
+}
+#div_tecnologias_do_sistema_template{
+  text-align: center;
+}
+@media(max-width: 450px){
+  #div_tecnologias_do_sistema_template{
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    min-width: 250px;
+    max-width: 250px;
+  }
+}
+
+/* Mensagem do sistema: */
+#div_mensagem_do_sistema_template{
+  position: absolute;
+  border: 1px solid #B8B8B8;
+  padding: 10px;
+  background-color: #E0E0E0;
+  box-shadow: 4px 4px 4px 1px #C8C8C8;
+}
+
+/* Formulário entrar: */
+#div_entrar_template{
+  position: absolute;
+  border: 1px solid #8080A0;
+  padding: 22px;
+  background-color: #D0D0F8;
+  box-shadow: 4px 4px 4px 1px #C8C8C8;
+}
+#div_nome_template{
+  color: #000050;
+}
+#div_senha_template{
+  margin-top: 14px;
+  color: #000050;
+}
+#div_botao_entrar_template{
+  margin-top: 20px;
+  text-align: right;
+}
+
+/* Classes para qualquer tag: */
+.tag_oculta{
+  display: none !important;
+}
+
+/* Estilos iniciais: */
+h1, h2, h3, h4, h5, h6{
+  margin: 0px;
+  font-family: Verdana, Tahoma, Times New Roman, serif;
+  font-size: 20pt;
+  font-weight: normal;
+}
+fieldset{
+  margin: 0px;
+  border: 1px solid #B0B0C8;
+  padding: 6px 12px 10px 12px;
+}
+input[type="text"],
+input[type="password"],
+input[type="number"]{
+  border: 1px solid #B0B0C8;
+  padding: 4px 5px;
+  width: calc(212px - 2px - 10px);
+  color: #000050;
+  font-family: Verdana, Tahoma, Times New Roman, serif;
+  font-size: 11pt;
+  appearance: none;
+  outline: none;
+}
+input:-webkit-autofill{
+  -webkit-box-shadow: 0 0 0px 999px #FFF inset;
+}
+input[type="text"]:hover,
+input[type="text"]:focus,
+input[type="password"]:hover,
+input[type="password"]:focus,
+input[type="number"]:hover,
+input[type="number"]:focus{
+  border: 1px solid #9090C8;
+  appearance: none;
+  outline: none;
+}
+textarea{
+  border: 1px solid #B0B0C8;
+  padding: 4px 5px;
+  width: calc(212px - 2px - 10px);
+  color: #000050;
+  font-family: Verdana, Tahoma, Times New Roman, serif;
+  font-size: 11pt;
+  appearance: none;
+  outline: none;
+}
+textarea:hover,
+textarea:focus{
+  border: 1px solid #9090C8;
+  appearance: none;
+  outline: none;
+}
+input[type="radio"]{
+  margin: 0px;
+}
+input[type="radio"]:checked{
+  -webkit-filter: grayscale(100%) contrast(130%);
+}
+input[type="checkbox"]{
+  margin: 0px;
+}
+@-moz-document url-prefix(){
+  input[type="radio"]{
+    position: relative;
+    top: -1px;
+  }
+  input[type="checkbox"]{
+    position: relative;
+    top: -1px;
+  }
+}
+input[type="submit"],
+input[type="reset"],
+button{
+  border-top: 1px solid #B0B0C8;
+  border-right: 2px solid #B0B0C8;
+  border-bottom: 2px solid #B0B0C8;
+  border-left: 1px solid #B0B0C8;
+  border-radius: 4px;
+  padding: 4px 4px 4px 3px;
+  background-color: #FFF;
+  color: #404070;
+  font-family: Tahoma, Verdana, Times New Roman, serif;
+  font-size: 11pt;
+  cursor: pointer;
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+button:hover{
+  border-top: 1px solid #9090C8;
+  border-right: 2px solid #9090C8;
+  border-bottom: 2px solid #9090C8;
+  border-left: 1px solid #9090C8;
+  background-color: #F0F0FF;
+  appearance: none;
+  outline: none;
+}
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+button:focus{
+  border-top: 2px solid #9090C8;
+  border-right: 1px solid #9090C8;
+  border-bottom: 1px solid #9090C8;
+  border-left: 2px solid #9090C8;
+  padding: 5px 3px 3px 4px;
+  appearance: none;
+  outline: none;
+}
+select{
+  border: 1px solid #B0B0C8;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  width: 212px;
+  background-color: #FFF;
+  color: #000050;
+  font-family: Verdana, Tahoma, Times New Roman, serif;
+  font-size: 11pt;
+  outline: none;
+}
+select:hover,
+select:focus{
+  border: 1px solid #9090C8;
+  outline: none;
+}
+p{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: justify;
+}
+a{
+  color: #00A000;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:visited{
+  color: #00A000;
+}
+a:hover{
+  color: #00A000;
+  text-decoration: underline;
+}

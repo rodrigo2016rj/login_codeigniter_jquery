@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="/css/{$visual_escolhido_template}/template.css" type="text/css" rel="stylesheet"/>
+    <script src="/script/jQuery 3.6.4 Comprimido.js"></script>
+    <script src="/script/template/controles.js"></script>
+    <script src="/script/template/interacoes.js"></script>
+    {block name=head_especifico}{/block}
+  </head>
+  <body>
+    <div id="div_cabecalho_template">
+      <nav id="nav_menu_01_template">
+          <a id="link_pagina_inicial_template" class="opcao_do_menu_01" href="/pagina_inicial">Início</a>
+        {if $usuario_esta_logado_template}
+          <a id="link_usuarios_template" class="opcao_do_menu_01" href="/usuarios">Usuários</a>
+        {/if}
+      </nav>
+      <nav id="nav_menu_02_template">
+        {if $usuario_esta_logado_template}
+          <a id="link_perfil_template" class="opcao_do_menu_02" 
+             href="/perfil?id={$id_do_usuario_logado_template}">Perfil</a>
+          <a id="link_configuracoes_template" class="opcao_do_menu_02" 
+             href="/configuracoes">Configurações</a>
+          {if $id_referencia_template}
+          <a id="link_sair_template" class="opcao_do_menu_02" 
+             href="/{$pagina_template}/sair?id={$id_referencia_template}">Sair</a>
+          {else}
+          <a id="link_sair_template" class="opcao_do_menu_02" href="/{$pagina_template}/sair">Sair</a>
+          {/if}
+        {else}
+          <a id="link_cadastrar_template" class="opcao_do_menu_02" href="/cadastre-se">Cadastre-se</a>
+          <a id="link_entrar_template" class="opcao_do_menu_02" href="">Entrar</a>
+        {/if}
+      </nav>
+    </div>
+    <div id="div_tronco_template">
+      {block name=pagina_do_sistema}{/block}
+    </div>
+    <div id="div_rodape_template">
+      <div id="div_autor_do_sistema_template">
+        <span>Este sistema foi feito por Rodrigo Diniz da Silva.</span>
+      </div>
+      <div id="div_tecnologias_do_sistema_template">
+        <span>Este sistema usa PHP, CodeIgniter, Smarty e JQuery.</span>
+      </div>
+    </div>
+    <div id="div_mensagem_do_sistema_template" class="tag_oculta">
+      <span id="span_mensagem_do_sistema_template">{$mensagem_template}</span>
+    </div>
+    <div id="div_entrar_template" class="tag_oculta">
+      {if $id_referencia_template}
+      <form id="form_entrar_template" method="post" action="/{$pagina_template}/entrar?id={$id_referencia_template}">
+      {else}
+      <form id="form_entrar_template" method="post" action="/{$pagina_template}/entrar">
+      {/if}
+        <div id="div_nome_template">
+          <div id="div_label_nome_template">
+            <label id="label_nome_template" for="campo_nome_template">
+              <span>Nome de usuário</span>
+            </label>
+          </div>
+          <div id="div_campo_nome_template">
+            <input type="text" id="campo_nome_template" name="nome_de_usuario"/>
+          </div>
+        </div>
+        <div id="div_senha_template">
+          <div id="div_label_senha_template">
+            <label id="label_senha_template" for="campo_senha_template">
+              <span>Senha</span>
+            </label>
+          </div>
+          <div id="div_campo_senha_template">
+            <input type="password" id="campo_senha_template" name="senha"/>
+          </div>
+        </div>
+        <div id="div_botao_entrar_template">
+          <input type="hidden" id="campo_anti_csrf_template" name="chave_anti_csrf" 
+                 value="{$chave_anti_csrf_template}"/>
+          <input type="submit" id="botao_entrar_template" value="Entrar"/>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

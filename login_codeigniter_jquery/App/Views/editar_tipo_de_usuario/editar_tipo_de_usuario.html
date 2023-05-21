@@ -1,0 +1,45 @@
+{extends file='../template.html'}
+
+{block name=head_especifico}
+<link href="/css/{$visual_escolhido_template}/editar_tipo_de_usuario.css" type="text/css" rel="stylesheet"/>
+<script src="/script/editar_tipo_de_usuario/interacoes.js"></script>
+<title>Editar tipo de usuário</title>
+{/block}
+
+{block name=pagina_do_sistema}
+<span id="span_id_referencia" class="tag_oculta">{$id_referencia_template}</span>
+{if $mensagem_da_pagina}
+<div id="div_mensagem">
+  <span id="span_mensagem">{$mensagem_da_pagina}</span>
+</div>
+{/if}
+{if $usuario_esta_logado_template and $mostrar_formulario}
+<div id="div_editar_tipo_de_usuario">
+  <h1 id="h1_titulo_da_pagina">
+    <span>Editar tipo do usuário {$nome_de_usuario}</span>
+  </h1>
+  <form id="form_editar_tipo_de_usuario" method="post" action="/editar_tipo_de_usuario/editar">
+    <div id="div_tipo_de_usuario">
+      <div id="div_label_tipo_de_usuario">
+        <label id="label_tipo_de_usuario" for="caixa_de_selecao_tipo_de_usuario">
+          <span>Tipo de usuário</span>
+        </label>
+      </div>
+      <div id="div_caixa_de_selecao_tipo_de_usuario">
+        <select id="caixa_de_selecao_tipo_de_usuario" name="tipo">
+          {foreach $tipos_de_usuario as $tipo_de_usuario}
+            <option value="{$tipo_de_usuario@key}" 
+                    {if $tipo == $tipo_de_usuario@key}selected="selected"{/if}>{$tipo_de_usuario}</option>
+          {/foreach}
+        </select>
+      </div>
+    </div>
+    <div id="div_botao_editar">
+      <input type="hidden" id="campo_anti_csrf" name="chave_anti_csrf" value="{$chave_anti_csrf}"/>
+      <input type="hidden" id="campo_id_do_usuario" name="pk_usuario" value="{$id}"/>
+      <input type="submit" id="botao_editar" value="Editar"/>
+    </div>
+  </form>
+</div>
+{/if}
+{/block}

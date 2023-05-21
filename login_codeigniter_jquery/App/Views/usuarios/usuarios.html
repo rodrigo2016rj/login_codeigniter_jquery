@@ -1,0 +1,146 @@
+{extends file='../template.html'}
+
+{block name=head_especifico}
+<link href="/css/{$visual_escolhido_template}/usuarios.css" type="text/css" rel="stylesheet"/>
+<script src="/script/usuarios/ajax.js"></script>
+<script src="/script/usuarios/controles.js"></script>
+<script src="/script/usuarios/interacoes.js"></script>
+<title>Usuários</title>
+{/block}
+
+{block name=pagina_do_sistema}
+{if $mensagem_da_pagina}
+<div id="div_mensagem">
+  <span id="span_mensagem">{$mensagem_da_pagina}</span>
+</div>
+{/if}
+{if $usuario_esta_logado_template}
+<div id="div_usuarios">
+  <h1 id="h1_titulo_da_pagina">
+    <span>Usuários</span>
+  </h1>
+  <form id="form_opcoes_de_filtro" method="get" action="/usuarios">
+    <h2 id="h2_titulo_filtros">
+      <span>Buscar</span>
+    </h2>
+    <div id="div_filtro_nome_de_usuario">
+      <div id="div_label_filtro_nome_de_usuario">
+        <label id="label_filtro_nome_de_usuario" for="campo_filtro_nome_de_usuario">
+          <span>Nome de usuário</span>
+        </label>
+      </div>
+      <div id="div_campo_filtro_nome_de_usuario">
+        <input type="text" id="campo_filtro_nome_de_usuario" name="filtro_nome_de_usuario" 
+               value="{$filtro_nome_de_usuario}" autocomplete="off"/>
+      </div>
+    </div>
+    {if $mostrar_email}
+    <div id="div_filtro_email_do_usuario">
+      <div id="div_label_filtro_email_do_usuario">
+        <label id="label_filtro_email_do_usuario" for="campo_filtro_email_do_usuario">
+          <span>E-mail</span>
+        </label>
+      </div>
+      <div id="div_campo_filtro_email_do_usuario">
+        <input type="text" id="campo_filtro_email_do_usuario" name="filtro_email_do_usuario" 
+               value="{$filtro_email_do_usuario}" autocomplete="off"/>
+      </div>
+    </div>
+    {/if}
+    <div id="div_filtro_tipo_de_usuario">
+      <div id="div_label_filtro_tipo_de_usuario">
+        <label id="label_filtro_tipo_de_usuario" for="caixa_de_selecao_filtro_tipo_de_usuario">
+          <span>Tipo de usuário</span>
+        </label>
+      </div>
+      <div id="div_caixa_de_selecao_filtro_tipo_de_usuario">
+        <select id="caixa_de_selecao_filtro_tipo_de_usuario" name="filtro_tipo_de_usuario">
+          <option value="todos">Selecione</option>
+          {foreach $tipos_de_usuario as $chave => $valor}
+          <option {if $filtro_tipo_de_usuario === $chave}selected="selected"{/if} 
+                  value="{$chave}">{$valor}</option>
+          {/foreach}
+        </select>
+      </div>
+    </div>
+    <div id="div_quantidade_por_segmento">
+      <div id="div_label_quantidade_por_segmento">
+        <label id="label_quantidade_por_segmento" for="caixa_de_selecao_quantidade_por_segmento">
+          <span>Quantidade por segmento</span>
+        </label>
+      </div>
+      <div id="div_caixa_de_selecao_quantidade_por_segmento">
+        <select id="caixa_de_selecao_quantidade_por_segmento" name="quantidade_por_segmento">
+          <option value="padrao">Selecione</option>
+          {foreach $quantidades_por_segmento as $chave => $valor}
+          <option {if $quantidade_por_segmento === $chave}selected="selected"{/if} 
+                  value="{$chave}">{$valor}</option>
+          {/foreach}
+        </select>
+      </div>
+    </div>
+    <div id="div_botoes">
+      <input type="hidden" id="campo_ordenacao" name="ordenacao" value="{$ordenacao}"/>
+      <input type="submit" id="botao_buscar" value="Buscar"/>
+      <input type="reset" id="botao_limpar" value="Limpar"/>
+    </div>
+  </form>
+  <div id="div_local_da_tabela_usuarios">
+    <h2 id="h2_titulo_tabela_de_usuarios">
+      <span>Tabela</span>
+    </h2>
+    <table id="tabela_usuarios">
+      <thead>
+        <tr>
+          <th class="th_nome_de_usuario">
+            <span class="span_ordenacao">{$ordem_do_nome_de_usuario}</span>
+          </th>
+          {if $mostrar_email}
+          <th class="th_email">
+            <span class="span_ordenacao">{$ordem_do_email}</span>
+          </th>
+          {/if}
+          <th class="th_momento_do_cadastro">
+            <span class="span_ordenacao">{$ordem_do_momento_do_cadastro}</span>
+          </th>
+          <th class="th_tipo">
+            <span class="span_ordenacao">{$ordem_do_tipo}</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {include file='usuarios/linhas_da_tabela_de_usuarios.html'}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th class="th_nome_de_usuario">
+            <span>Nome de Usuário</span>
+          </th>
+          {if $mostrar_email}
+          <th class="th_email">
+            <span>E-mail</span>
+          </th>
+          {/if}
+          <th class="th_momento_do_cadastro">
+            <span>Cadastrado em</span>
+          </th>
+          <th class="th_tipo">
+            <span>Tipo</span>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+    <div id="div_link_carregar_mais_registros">
+      <a id="link_carregar_mais_registros" href="">Carregar mais registros</a>
+      <span id="span_segmento_atual" class="tag_oculta">1</span>
+    </div>
+    <div id="div_mensagem_de_carregamento_da_tabela" class="tag_oculta">
+      <span id="span_mensagem_de_carregamento_da_tabela">Carregando...</span>
+    </div>
+    <div id="div_mensagem_de_final_da_tabela" class="tag_oculta">
+      <span id="span_mensagem_de_final_da_tabela">A tabela chegou ao fim.</span>
+    </div>
+  </div>
+</div>
+{/if}
+{/block}

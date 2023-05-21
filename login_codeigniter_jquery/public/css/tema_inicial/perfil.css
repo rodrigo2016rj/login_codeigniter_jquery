@@ -1,0 +1,199 @@
+#div_mensagem{
+  border-bottom: 1px solid #D0D0D0;
+  padding-bottom: 20px;
+  min-width: 100%;
+  max-width: 100%;
+  line-height: 22px;
+}
+#h1_titulo_da_pagina{
+  word-wrap: break-word;
+}
+@media(max-width: 640px){
+  #h1_titulo_da_pagina{
+    font-size: 17pt;
+  }
+}
+
+/* Informações do usuário */
+#div_informacoes_do_usuario{
+  margin-top: 25px;
+  max-width: 608px;
+  overflow: hidden;
+}
+@media(max-width: 700px){
+  #div_informacoes_do_usuario{
+    max-width: none;
+  }
+}
+#div_local_do_id_do_usuario{
+  float: left;
+  border: 1px solid #B0B0C8;
+  min-width: calc(200px - 2px);
+  max-width: calc(200px - 2px);
+  min-height: 160px;
+  max-height: 160px;
+  background-color: #FDFDFD;
+  overflow: auto;
+}
+@media(max-width: 700px){
+  #div_local_do_id_do_usuario{
+    min-width: calc(100% - 2px);
+    max-width: calc(100% - 2px);
+  }
+}
+#span_rotulo_do_id_do_usuario{
+  margin-left: 10px;
+  color: #B0B0B0;
+  font-size: 22pt;
+}
+#div_id_do_usuario{
+  margin-top: 16px;
+  min-width: 100%;
+  max-width: 100%;
+  text-align: center;
+}
+#span_id_do_usuario{
+  color: #4040D0;
+  font-size: 26pt;
+}
+#div_local_do_tipo_do_usuario{
+  float: left;
+  margin-left: 4px;
+  border: 1px solid #B0B0C8;
+  min-width: calc(204px - 4px - 2px);
+  max-width: calc(204px - 4px - 2px);
+  min-height: 160px;
+  max-height: 160px;
+  background-color: #FDFDFD;
+}
+@media(max-width: 700px){
+  #div_local_do_tipo_do_usuario{
+    margin-top: 4px;
+    margin-left: 0px;
+    min-width: calc(100% - 2px);
+    max-width: calc(100% - 2px);
+  }
+}
+#span_rotulo_do_tipo_do_usuario{
+  margin-left: 10px;
+  color: #B0B0B0;
+  font-size: 22pt;
+}
+#link_editar_tipo_de_usuario{
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  width: 30px;
+  height: 30px;
+  vertical-align: top;
+  background-image: url("../../imagens/icones/lapis.png");
+  background-size: cover;
+}
+#div_tipo_do_usuario{
+  margin-top: 28px;
+  min-width: 100%;
+  max-width: 100%;
+  text-align: center;
+}
+#span_tipo_do_usuario{
+  color: #4040D0;
+  font-size: 18pt;
+}
+#div_local_do_sexo_do_usuario{
+  float: left;
+  margin-left: 4px;
+  border: 1px solid #B0B0C8;
+  min-width: calc(204px - 4px - 2px);
+  max-width: calc(204px - 4px - 2px);
+  min-height: 160px;
+  max-height: 160px;
+  background-color: #FDFDFD;
+}
+@media(max-width: 700px){
+  #div_local_do_sexo_do_usuario{
+    margin-top: 4px;
+    margin-left: 0px;
+    min-width: calc(100% - 2px);
+    max-width: calc(100% - 2px);
+  }
+}
+#span_rotulo_do_sexo_do_usuario{
+  margin-left: 10px;
+  color: #B0B0B0;
+  font-size: 22pt;
+}
+#div_sexo_do_usuario{
+  margin-top: 28px;
+  min-width: 100%;
+  max-width: 100%;
+  text-align: center;
+}
+#span_sexo_do_usuario{
+  color: #4040D0;
+  font-size: 18pt;
+}
+#div_local_do_email_do_usuario{
+  float: left;
+  margin-top: 4px;
+  border: 1px solid #B0B0C8;
+  min-width: calc(608px - 2px);
+  max-width: calc(608px - 2px);
+  min-height: 160px;
+  max-height: 160px;
+  background-color: #FDFDFD;
+  overflow: auto;
+}
+@media(max-width: 700px){
+  #div_local_do_email_do_usuario{
+    min-width: calc(100% - 2px);
+    max-width: calc(100% - 2px);
+  }
+}
+#span_rotulo_do_email_do_usuario{
+  margin-left: 10px;
+  color: #B0B0B0;
+  font-size: 22pt;
+}
+#div_email_do_usuario{
+  margin-top: 28px;
+  min-width: 100%;
+  max-width: 100%;
+  text-align: center;
+  word-wrap: break-word;
+}
+#span_email_do_usuario{
+  color: #4040D0;
+  font-size: 18pt;
+}
+
+#div_local_do_momento_do_cadastro_do_usuario{
+  float: left;
+  margin-top: 4px;
+  border: 1px solid #B0B0C8;
+  min-width: calc(608px - 2px);
+  max-width: calc(608px - 2px);
+  min-height: 160px;
+  max-height: 160px;
+  background-color: #FDFDFD;
+}
+@media(max-width: 700px){
+  #div_local_do_momento_do_cadastro_do_usuario{
+    min-width: calc(100% - 2px);
+    max-width: calc(100% - 2px);
+  }
+}
+#span_rotulo_do_momento_do_cadastro_do_usuario{
+  margin-left: 10px;
+  color: #B0B0B0;
+  font-size: 22pt;
+}
+#div_momento_do_cadastro_do_usuario{
+  margin-top: 32px;
+  min-width: 100%;
+  max-width: 100%;
+  text-align: center;
+}
+#span_momento_do_cadastro_do_usuario{
+  color: #4040D0;
+  font-size: 18pt;
+}
