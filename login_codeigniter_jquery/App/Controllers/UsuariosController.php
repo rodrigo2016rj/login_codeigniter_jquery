@@ -134,10 +134,18 @@ final class UsuariosController extends TemplateController{
         $this->get_smarty()->assign('ordem_do_nome_de_usuario', "Nome de Usuário ▼");
         break;
       case 'email_em_ordem_alfabetica':
-        $this->get_smarty()->assign('ordem_do_email', "E-mail ▲");
+        if($mostrar_email){
+          $this->get_smarty()->assign('ordem_do_email', "E-mail ▲");
+        }else{
+          $ordenacao = 'padrao';
+        }
         break;
       case 'email_em_ordem_alfabetica_inversa':
-        $this->get_smarty()->assign('ordem_do_email', "E-mail ▼");
+        if($mostrar_email){
+          $this->get_smarty()->assign('ordem_do_email', "E-mail ▼");
+        }else{
+          $ordenacao = 'padrao';
+        }
         break;
       case 'momento_do_cadastro_em_ordem_cronologica':
         $this->get_smarty()->assign('ordem_do_momento_do_cadastro', "Cadastrado em ▲");
@@ -154,9 +162,6 @@ final class UsuariosController extends TemplateController{
       default:
         $ordenacao = 'padrao';
         break;
-    }
-    if(!$mostrar_email){
-      $ordenacao = 'padrao';
     }
     $this->get_smarty()->assign('ordenacao', $ordenacao);
 
