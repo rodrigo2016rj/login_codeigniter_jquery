@@ -59,7 +59,7 @@ final class UsuariosController extends TemplateController{
     $this->index(true);
   }
 
-  public function criar_array_quantidades_por_segmento(){
+  private function criar_array_quantidades_por_segmento(){
     $quantidades_por_segmento["5"] = 5;
     $quantidades_por_segmento["10"] = 10;
     $quantidades_por_segmento["15"] = 15;
