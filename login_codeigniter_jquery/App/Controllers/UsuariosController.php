@@ -60,17 +60,17 @@ final class UsuariosController extends TemplateController{
   }
 
   private function criar_array_quantidades_por_segmento(){
-    $quantidades_por_segmento["5"] = 5;
-    $quantidades_por_segmento["10"] = 10;
-    $quantidades_por_segmento["15"] = 15;
-    $quantidades_por_segmento["20"] = 20;
-    $quantidades_por_segmento["25"] = 25;
-    $quantidades_por_segmento["30"] = 30;
-    $quantidades_por_segmento["40"] = 40;
-    $quantidades_por_segmento["50"] = 50;
-    $quantidades_por_segmento["60"] = 60;
-    $quantidades_por_segmento["100"] = 100;
-    $quantidades_por_segmento["120"] = 120;
+    $quantidades_por_segmento['5'] = 5;
+    $quantidades_por_segmento['10'] = 10;
+    $quantidades_por_segmento['15'] = 15;
+    $quantidades_por_segmento['20'] = 20;
+    $quantidades_por_segmento['25'] = 25;
+    $quantidades_por_segmento['30'] = 30;
+    $quantidades_por_segmento['40'] = 40;
+    $quantidades_por_segmento['50'] = 50;
+    $quantidades_por_segmento['60'] = 60;
+    $quantidades_por_segmento['100'] = 100;
+    $quantidades_por_segmento['120'] = 120;
 
     return $quantidades_por_segmento;
   }
@@ -86,9 +86,9 @@ final class UsuariosController extends TemplateController{
     if($this->get_usuario_logado() !== null){
       $tipo_do_usuario_logado = $this->get_usuario_logado()->get_tipo();
       switch($tipo_do_usuario_logado){
-        case "dono":
-        case "administrador":
-        case "moderador":
+        case 'dono':
+        case 'administrador':
+        case 'moderador':
           $mostrar_email = true;
           break;
       }
@@ -120,44 +120,44 @@ final class UsuariosController extends TemplateController{
 
     /* Preparando a ordenação */
     $ordenacao = $requisicao->getGet('ordenacao');
-    $this->get_smarty()->assign('ordem_do_nome_de_usuario', "Nome de Usuário");
-    $this->get_smarty()->assign('ordem_do_email', "E-mail");
-    $this->get_smarty()->assign('ordem_do_momento_do_cadastro', "Cadastrado em");
-    $this->get_smarty()->assign('ordem_do_tipo', "Tipo");
+    $this->get_smarty()->assign('ordem_do_nome_de_usuario', 'Nome de Usuário');
+    $this->get_smarty()->assign('ordem_do_email', 'E-mail');
+    $this->get_smarty()->assign('ordem_do_momento_do_cadastro', 'Cadastrado em');
+    $this->get_smarty()->assign('ordem_do_tipo', 'Tipo');
     switch($ordenacao){
       case 'padrao':
         break;
       case 'nome_de_usuario_em_ordem_alfabetica':
-        $this->get_smarty()->assign('ordem_do_nome_de_usuario', "Nome de Usuário ▲");
+        $this->get_smarty()->assign('ordem_do_nome_de_usuario', 'Nome de Usuário ▲');
         break;
       case 'nome_de_usuario_em_ordem_alfabetica_inversa':
-        $this->get_smarty()->assign('ordem_do_nome_de_usuario', "Nome de Usuário ▼");
+        $this->get_smarty()->assign('ordem_do_nome_de_usuario', 'Nome de Usuário ▼');
         break;
       case 'email_em_ordem_alfabetica':
         if($mostrar_email){
-          $this->get_smarty()->assign('ordem_do_email', "E-mail ▲");
+          $this->get_smarty()->assign('ordem_do_email', 'E-mail ▲');
         }else{
           $ordenacao = 'padrao';
         }
         break;
       case 'email_em_ordem_alfabetica_inversa':
         if($mostrar_email){
-          $this->get_smarty()->assign('ordem_do_email', "E-mail ▼");
+          $this->get_smarty()->assign('ordem_do_email', 'E-mail ▼');
         }else{
           $ordenacao = 'padrao';
         }
         break;
       case 'momento_do_cadastro_em_ordem_cronologica':
-        $this->get_smarty()->assign('ordem_do_momento_do_cadastro', "Cadastrado em ▲");
+        $this->get_smarty()->assign('ordem_do_momento_do_cadastro', 'Cadastrado em ▲');
         break;
       case 'momento_do_cadastro_em_ordem_cronologica_inversa':
-        $this->get_smarty()->assign('ordem_do_momento_do_cadastro', "Cadastrado em ▼");
+        $this->get_smarty()->assign('ordem_do_momento_do_cadastro', 'Cadastrado em ▼');
         break;
       case 'tipo_em_ordem_alfabetica':
-        $this->get_smarty()->assign('ordem_do_tipo', "Tipo ▲");
+        $this->get_smarty()->assign('ordem_do_tipo', 'Tipo ▲');
         break;
       case 'tipo_em_ordem_alfabetica_inversa':
-        $this->get_smarty()->assign('ordem_do_tipo', "Tipo ▼");
+        $this->get_smarty()->assign('ordem_do_tipo', 'Tipo ▼');
         break;
       default:
         $ordenacao = 'padrao';
