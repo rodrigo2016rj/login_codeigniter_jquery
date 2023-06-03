@@ -1,5 +1,5 @@
 ## Sobre
-<p>Este sistema é apenas uma demonstração de: formulário de cadastro, formulário de login, tabela com navegação contínua, página de configurações, abas, validações e níveis de permissão. Tudo feito com CodeIgniter, jQuery e MySQL.</p>
+<p>Este sistema é apenas uma demonstração de: formulário de cadastro, formulário de login, tabela com navegação contínua, página de configurações, abas, validações e níveis de permissão. Tudo feito com CodeIgniter, Smarty, jQuery e MySQL.</p>
 
 <p>Este sistema serve para divulgar o meu trabalho e também serve como material de estudo para outros programadores.</p>
 
