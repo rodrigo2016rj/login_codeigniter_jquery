@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use CodeIgniter\Database\Exceptions\DatabaseException;
 use App\Models\PrimordialModel;
 use App\Models\Entidades\Usuario;
 
@@ -73,7 +74,7 @@ MySQL;
 
     try{
       $builder->insert($insert);
-    }catch(\Exception $excecao){
+    }catch(DatabaseException $excecao){
       $codigo_da_excecao = $excecao->getCode();
       switch($codigo_da_excecao){
         case 1062:
