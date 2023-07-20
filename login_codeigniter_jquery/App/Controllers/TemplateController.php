@@ -110,12 +110,12 @@ class TemplateController extends Controller{
       $this->get_sessao()->set('chaves_anti_csrf_template', $chaves_anti_csrf);
     }
 
-    if(empty($nome_de_usuario)){
+    if($nome_de_usuario === ''){
       $mensagem = 'O campo nome de usuário precisa ser preenchido.';
       $this->sessao->set('mensagem_template', $mensagem);
       return false;
     }
-    if(empty($senha)){
+    if($senha === '' or $senha === null){
       $mensagem = 'O campo senha precisa ser preenchido.';
       $this->sessao->set('mensagem_template', $mensagem);
       return false;

@@ -117,7 +117,7 @@ final class CadastreSeController extends TemplateController{
       $this->get_sessao()->set('chaves_anti_csrf_da_pagina_cadastre_se', $chaves_anti_csrf);
     }
 
-    if(empty($nome_de_usuario)){
+    if($nome_de_usuario === ''){
       $mensagem = 'O campo nome de usuário precisa ser preenchido.';
       $this->get_sessao()->set('mensagem_da_pagina_cadastre_se', $mensagem);
       $this->index(true);
@@ -158,7 +158,7 @@ final class CadastreSeController extends TemplateController{
       $this->index(true);
     }
 
-    if(empty($email)){
+    if($email === ''){
       $mensagem = 'O campo e-mail precisa ser preenchido.';
       $this->get_sessao()->set('mensagem_da_pagina_cadastre_se', $mensagem);
       $this->index(true);
@@ -224,7 +224,7 @@ final class CadastreSeController extends TemplateController{
       $this->index(true);
     }
 
-    if(empty($senha)){
+    if($senha === '' or $senha === null){
       $mensagem = 'O campo senha precisa ser preenchido.';
       $this->get_sessao()->set('mensagem_da_pagina_cadastre_se', $mensagem);
       $this->index(true);
@@ -243,7 +243,7 @@ final class CadastreSeController extends TemplateController{
       $this->index(true);
     }
 
-    if(empty($senha_novamente)){
+    if($senha_novamente === '' or $senha_novamente === null){
       $mensagem = 'O segundo campo de senha precisa ser preenchido.';
       $this->get_sessao()->set('mensagem_da_pagina_cadastre_se', $mensagem);
       $this->index(true);
@@ -255,7 +255,7 @@ final class CadastreSeController extends TemplateController{
       $this->index(true);
     }
 
-    if(empty($sexo)){
+    if($sexo === ''){
       $mensagem = 'O sexo precisa ser informado.';
       $this->get_sessao()->set('mensagem_da_pagina_cadastre_se', $mensagem);
       $this->index(true);

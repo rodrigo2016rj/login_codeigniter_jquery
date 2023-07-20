@@ -212,7 +212,7 @@ final class ConfiguracoesController extends TemplateController{
     }
 
     $nome_de_usuario = trim($requisicao->getPost('nome_de_usuario') ?? '');
-    if(empty($nome_de_usuario)){
+    if($nome_de_usuario === ''){
       $mensagem = 'O campo nome de usuário não pode ficar em branco.';
       $retorno['mensagem_de_falha'] = $mensagem;
       echo json_encode($retorno);
@@ -389,7 +389,7 @@ final class ConfiguracoesController extends TemplateController{
     $nova_senha = $requisicao->getPost('nova_senha');
     $nova_senha_novamente = $requisicao->getPost('nova_senha_novamente');
 
-    if(empty($senha_atual)){
+    if($senha_atual === '' or $senha_atual === null){
       $mensagem = 'O campo senha atual não pode ficar em branco.';
       $retorno['mensagem_de_falha'] = $mensagem;
       echo json_encode($retorno);
@@ -403,7 +403,7 @@ final class ConfiguracoesController extends TemplateController{
       die;
     }
 
-    if(empty($nova_senha)){
+    if($nova_senha === '' or $nova_senha === null){
       $mensagem = 'O campo nova senha não pode ficar em branco.';
       $retorno['mensagem_de_falha'] = $mensagem;
       echo json_encode($retorno);
@@ -428,7 +428,7 @@ final class ConfiguracoesController extends TemplateController{
       die;
     }
 
-    if(empty($nova_senha_novamente)){
+    if($nova_senha_novamente === '' or $nova_senha_novamente === null){
       $mensagem = 'O campo nova senha novamente não pode ficar em branco.';
       $retorno['mensagem_de_falha'] = $mensagem;
       echo json_encode($retorno);
