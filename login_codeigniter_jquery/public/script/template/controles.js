@@ -66,4 +66,27 @@ $(document).ready(function(){
     }
   });
   
+  /* Comportamento dos popups quando a janela é redimensionada */
+  $(window).on("resize", function(){
+    const largura_da_janela = $(window).width();
+    
+    if(!$div_mensagem_do_sistema_template.hasClass("tag_oculta")){
+      $div_mensagem_do_sistema_template.addClass("tag_oculta");
+      $div_mensagem_do_sistema_template.css("right", 10);
+      $div_mensagem_do_sistema_template.css("margin-left", 10);
+      $div_mensagem_do_sistema_template.removeClass("tag_oculta");
+      
+      const largura_da_div_mensagem_do_sistema_template = $div_mensagem_do_sistema_template.outerWidth(false);
+      var posicao_horizontal = largura_da_janela / 2 - largura_da_div_mensagem_do_sistema_template / 2;
+      posicao_horizontal = Math.floor(posicao_horizontal);
+      $div_mensagem_do_sistema_template.css("right", posicao_horizontal);
+      $div_mensagem_do_sistema_template.css("margin-left", posicao_horizontal);
+    }
+    
+    if(!$div_entrar_template.hasClass("tag_oculta")){
+      const largura_da_div_entrar_template = $div_entrar_template.outerWidth(false);
+      var posicao_direita = largura_da_janela / 2 - largura_da_div_entrar_template / 2;
+      $div_entrar_template.css("right", posicao_direita);
+    }
+  });
 });
