@@ -26,7 +26,7 @@
         </label>
       </div>
       <div id="div_caixa_de_selecao_tipo_de_usuario">
-        <select id="caixa_de_selecao_tipo_de_usuario" name="tipo">
+        <select id="caixa_de_selecao_tipo_de_usuario" name="tipo" autocomplete="off">
           {foreach $tipos_de_usuario as $tipo_de_usuario}
             <option value="{$tipo_de_usuario@key}" 
                     {if $tipo == $tipo_de_usuario@key}selected="selected"{/if}>{$tipo_de_usuario}</option>
