@@ -217,7 +217,7 @@ final class UsuariosController extends TemplateController{
     /* Verificando se o usuário está logado */
     if($this->get_usuario_logado() === null){
       $mensagem = 'Você precisa entrar para poder consultar usuários.';
-      $retorno['erro'] = $mensagem;
+      $retorno['mensagem_de_falha'] = $mensagem;
       echo json_encode($retorno);
       die;
     }

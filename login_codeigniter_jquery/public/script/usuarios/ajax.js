@@ -46,7 +46,10 @@ $(document).ready(function(){
           success: function(resposta){
             $div_link_carregar_mais_registros.removeClass("tag_oculta");
             $div_mensagem_de_carregamento_da_tabela.addClass("tag_oculta");
-            if(resposta.linhas_da_tabela !== ""){
+            if(typeof resposta.mensagem_de_falha != "undefined"){
+              alert(resposta.mensagem_de_falha);
+              window.location.href = "usuarios";
+            }else if(resposta.linhas_da_tabela !== ""){
               $corpo_da_tabela.append(resposta.linhas_da_tabela);
               $span_segmento_atual.html(segmento);
               
