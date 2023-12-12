@@ -7,7 +7,9 @@ final class Usuario{
   private $nome_de_usuario;
   private $email;
   private $senha;
+  private $chave_para_operacoes_via_link;
   private $momento_do_cadastro;
+  private $conta_confirmada;
   private $fuso_horario;
   private $visual;
   private $tipo;
@@ -28,8 +30,14 @@ final class Usuario{
     if(isset($array_usuario['senha'])){
       $this->senha = $array_usuario['senha'];
     }
+    if(isset($array_usuario['chave_para_operacoes_via_link'])){
+      $this->chave_para_operacoes_via_link = $array_usuario['chave_para_operacoes_via_link'];
+    }
     if(isset($array_usuario['momento_do_cadastro'])){
       $this->momento_do_cadastro = $array_usuario['momento_do_cadastro'];
+    }
+    if(isset($array_usuario['conta_confirmada'])){
+      $this->conta_confirmada = $array_usuario['conta_confirmada'];
     }
     if(isset($array_usuario['fuso_horario'])){
       $this->fuso_horario = $array_usuario['fuso_horario'];
@@ -67,8 +75,16 @@ final class Usuario{
     $this->senha = $senha;
   }
 
+  public function set_chave_para_operacoes_via_link($chave_para_operacoes_via_link){
+    $this->chave_para_operacoes_via_link = $chave_para_operacoes_via_link;
+  }
+
   public function set_momento_do_cadastro($momento_do_cadastro){
     $this->momento_do_cadastro = $momento_do_cadastro;
+  }
+
+  public function set_conta_confirmada($conta_confirmada){
+    $this->conta_confirmada = $conta_confirmada;
   }
 
   public function set_fuso_horario($fuso_horario){
@@ -111,8 +127,16 @@ final class Usuario{
     return $this->senha;
   }
 
+  public function get_chave_para_operacoes_via_link(){
+    return $this->chave_para_operacoes_via_link;
+  }
+
   public function get_momento_do_cadastro(){
     return $this->momento_do_cadastro;
+  }
+
+  public function get_conta_confirmada(){
+    return $this->conta_confirmada;
   }
 
   public function get_fuso_horario(){
@@ -137,6 +161,12 @@ final class Usuario{
 
   public function get_exibir_email_no_perfil(){
     return $this->exibir_email_no_perfil;
+  }
+
+  public function enum_conta_confirmada(){
+    $array_enum['sim'] = 'Sim';
+    $array_enum['nao'] = 'Não';
+    return $array_enum;
   }
 
   public function enum_sexo(){

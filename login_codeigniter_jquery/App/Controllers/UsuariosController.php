@@ -21,6 +21,7 @@ final class UsuariosController extends TemplateController{
     /* Mostrando mensagem caso exista alguma */
     if($this->get_sessao()->has('mensagem_template')){
       $mensagem_template = $this->get_sessao()->get('mensagem_template');
+      $mensagem_template = esc($mensagem_template);
       $this->get_smarty()->assign('mensagem_template', $mensagem_template);
       $this->get_sessao()->remove('mensagem_template');
     }
@@ -44,6 +45,7 @@ final class UsuariosController extends TemplateController{
       $mensagem = 'Você precisa entrar para poder acessar esta página.';
     }
 
+    $mensagem = esc($mensagem);
     $this->get_smarty()->assign('mensagem_da_pagina', $mensagem);
     $this->get_smarty()->display('usuarios/usuarios.html');
     die;
@@ -180,7 +182,7 @@ final class UsuariosController extends TemplateController{
 
     /* Preparando o resultado */
     $usuarios = $usuarios_model->selecionar_usuarios($filtros, $ordenacao, $quantidade_por_segmento,
-      $descartar);
+    $descartar);
     $array_usuarios = array();
     foreach($usuarios as $usuario){
       $array_usuario = array();

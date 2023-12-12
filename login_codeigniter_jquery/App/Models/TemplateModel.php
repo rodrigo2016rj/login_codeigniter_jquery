@@ -29,9 +29,9 @@ final class TemplateModel extends PrimordialModel{
     return $array_resultado;
   }
 
-  public function seleciona_senha_do_usuario_pelo_nome_de_usuario($nome_de_usuario){
+  public function seleciona_algumas_informacoes_do_usuario_pelo_nome_de_usuario($nome_de_usuario){
     $sql = <<<'MySQL'
-SELECT senha FROM usuario WHERE nome_de_usuario=?
+SELECT email, senha, conta_confirmada FROM usuario WHERE nome_de_usuario=?
 MySQL;
 
     $query = $this->get_banco_de_dados()->query($sql, $nome_de_usuario);

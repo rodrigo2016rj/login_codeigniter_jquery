@@ -6,6 +6,7 @@ use App\Models\CadastreSeModel;
 use App\Models\Entidades\Usuario;
 use DateTime;
 use DateTimeZone;
+use Config\Services as Servicos;
 
 final class CadastreSeController extends TemplateController{
 
@@ -22,6 +23,7 @@ final class CadastreSeController extends TemplateController{
     /* Mostrando mensagem caso exista alguma */
     if($this->get_sessao()->has('mensagem_template')){
       $mensagem_template = $this->get_sessao()->get('mensagem_template');
+      $mensagem_template = esc($mensagem_template);
       $this->get_smarty()->assign('mensagem_template', $mensagem_template);
       $this->get_sessao()->remove('mensagem_template');
     }
@@ -66,6 +68,7 @@ final class CadastreSeController extends TemplateController{
       $this->get_sessao()->remove('mensagem_da_pagina_cadastre_se');
     }
 
+    $mensagem = esc($mensagem);
     $this->get_smarty()->assign('mensagem_da_pagina', $mensagem);
     $this->get_smarty()->display('cadastre-se/cadastre-se.html');
     die;
@@ -269,6 +272,9 @@ final class CadastreSeController extends TemplateController{
     /* Criptografias */
     $senha = $this->criptografar_senha_do_usuario($senha);
 
+    /* Chave para operações via link (operação confirmar conta) */
+    $chave = $this->criar_chave_para_operacoes_via_link();
+
     /* Momento atual sem fuso horário, pois no banco de dados armazeno sem fuso horário (timezone) */
     $sem_fuso_horario = new DateTimeZone('GMT');
     $objeto_date_time = new DateTime('now', $sem_fuso_horario);
@@ -278,6 +284,7 @@ final class CadastreSeController extends TemplateController{
     $usuario->set_nome_de_usuario($nome_de_usuario);
     $usuario->set_email($email);
     $usuario->set_senha($senha);
+    $usuario->set_chave_para_operacoes_via_link($chave);
     $usuario->set_momento_do_cadastro($momento_atual);
     $usuario->set_sexo($sexo);
 
@@ -288,7 +295,45 @@ final class CadastreSeController extends TemplateController{
       $this->get_sessao()->set('mensagem_da_pagina_cadastre_se', $mensagem);
       $this->index(true);
     }else{
-      $mensagem = 'Seu cadastro foi realizado com sucesso.';
+      $pk_usuario = $array_resultado['pk_usuario'];
+
+      $servico_de_email = Servicos::email();
+
+      $servico_de_email->setFrom('sistema@localhost.rds', 'Sistema Login CodeIgniter jQuery');
+
+      $email = esc($email);
+      $servico_de_email->setTo($email);
+
+      $servico_de_email->setSubject('Confirmação de Conta');
+
+      $texto = <<<HTML
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+  </head>
+  <div>
+    <span>Alguém, provavelmente você, se cadastrou no Sistema Login CodeIgniter jQuery,
+    com este e-mail ($email) e IP {$_SERVER['REMOTE_ADDR']}.</span>
+    <br/><br/>
+    <span>Se você não fez este cadastro, ignore esta mensagem.</span>
+    <br/><br/>
+    <span>Acesse o link abaixo para confirmar sua conta:</span>
+    <br/>
+    <a href="http://localhost/pagina_inicial/confirmar_conta?id_do_usuario=$pk_usuario&chave=$chave">Confirmar Conta</a>
+    <br/><br/>
+    <span>--</span>
+    <br/>
+    <span>Sistema</span>
+  </div>
+</html>
+HTML;
+
+      $servico_de_email->setMessage($texto);
+
+      $servico_de_email->send();
+
+      $mensagem = 'Seu cadastro foi realizado com sucesso, confirme sua conta pelo link enviado';
+      $mensagem .= " para o seu e-mail ($email).";
       $this->get_sessao()->set('mensagem_da_pagina_cadastre_se', $mensagem);
       $this->get_sessao()->remove('backup_do_formulario_da_pagina_cadastre_se');
       $this->index(true);

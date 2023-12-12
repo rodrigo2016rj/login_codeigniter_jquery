@@ -36,6 +36,7 @@ $routes->get('/', 'PaginaInicialController::index');
 $routes->get('/pagina_inicial', 'PaginaInicialController::index');
 $routes->post('/pagina_inicial/entrar', 'PaginaInicialController::entrar');
 $routes->get('/pagina_inicial/sair', 'PaginaInicialController::sair');
+$routes->get('/pagina_inicial/confirmar_conta', 'PaginaInicialController::confirmar_conta');
 
 /* Cadastrar-se */
 $routes->get('/cadastre-se', 'CadastreSeController::index');

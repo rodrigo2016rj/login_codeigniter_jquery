@@ -24,6 +24,7 @@ final class EditarTipoDeUsuarioController extends TemplateController{
     /* Mostrando mensagem caso exista alguma */
     if($this->get_sessao()->has('mensagem_template')){
       $mensagem_template = $this->get_sessao()->get('mensagem_template');
+      $mensagem_template = esc($mensagem_template);
       $this->get_smarty()->assign('mensagem_template', $mensagem_template);
       $this->get_sessao()->remove('mensagem_template');
     }
@@ -140,6 +141,7 @@ final class EditarTipoDeUsuarioController extends TemplateController{
     }
 
     $this->get_smarty()->assign('mostrar_formulario', $mostrar_formulario);
+    $mensagem = esc($mensagem);
     $this->get_smarty()->assign('mensagem_da_pagina', $mensagem);
     $this->get_smarty()->display('editar_tipo_de_usuario/editar_tipo_de_usuario.html');
     die;

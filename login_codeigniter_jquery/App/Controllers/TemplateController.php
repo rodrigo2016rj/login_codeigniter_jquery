@@ -18,7 +18,7 @@ class TemplateController extends Controller{
   private $usuario_logado; //Armazena informações do usuário logado.
 
   public function initController(RequestInterface $requisicao, ResponseInterface $response,
-    LoggerInterface $logger){
+  LoggerInterface $logger){
     parent::initController($requisicao, $response, $logger);
 
     $this->sessao = session();
@@ -121,7 +121,7 @@ class TemplateController extends Controller{
       return false;
     }
 
-    $array_resultado = $template_model->seleciona_senha_do_usuario_pelo_nome_de_usuario($nome_de_usuario);
+    $array_resultado = $template_model->seleciona_algumas_informacoes_do_usuario_pelo_nome_de_usuario($nome_de_usuario);
 
     if(isset($array_resultado['mensagem_do_model'])){
       $this->sessao->set('mensagem_template', $array_resultado['mensagem_do_model']);
@@ -129,6 +129,13 @@ class TemplateController extends Controller{
     }else{
       $usuario = $array_resultado[0];
       if(password_verify($senha, $usuario->get_senha())){
+        if($usuario->get_conta_confirmada() === 'nao'){
+          $email = $usuario->get_email();
+          $mensagem = 'Sua conta ainda não foi confirmada, confirme sua conta pelo link enviado';
+          $mensagem .= " para o seu e-mail ($email).";
+          $this->sessao->set('mensagem_template', $mensagem);
+          return false;
+        }
         $this->sessao->set('nome_de_usuario', $nome_de_usuario);
       }else{
         $mensagem = 'A senha digitada não está correta.';
@@ -159,6 +166,23 @@ class TemplateController extends Controller{
   protected final function criar_hash_da_chave_anti_csrf(){
     //Baseado no método generateHash da framework CodeIgniter.
     return bin2hex(random_bytes(17));
+  }
+
+  /** ---------------------------------------------------------------------------------------------
+    Cria chave para operações via link. */
+  protected final function criar_chave_para_operacoes_via_link(){
+    $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $caracteres .= '0123456789';
+    $primeira_posicao = 0;
+    $ultima_posicao = strlen($caracteres) - 1;
+    $chave = '';
+
+    for($i = 1; $i <= 30; $i++){
+      $posicao_sorteada = random_int($primeira_posicao, $ultima_posicao);
+      $chave .= substr($caracteres, $posicao_sorteada, 1);
+    }
+
+    return $chave;
   }
 
   /** ---------------------------------------------------------------------------------------------

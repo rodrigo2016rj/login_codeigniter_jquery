@@ -67,6 +67,7 @@ MySQL;
     $insert['nome_de_usuario'] = $usuario->get_nome_de_usuario();
     $insert['email'] = $usuario->get_email();
     $insert['senha'] = $usuario->get_senha();
+    $insert['chave_para_operacoes_via_link'] = $usuario->get_chave_para_operacoes_via_link();
     $insert['momento_do_cadastro'] = $usuario->get_momento_do_cadastro();
     $insert['sexo'] = $usuario->get_sexo();
 
@@ -87,6 +88,7 @@ MySQL;
       }
     }
 
+    $array_resultado['pk_usuario'] = $this->db->insertID();
     return $array_resultado;
   }
 

@@ -28,6 +28,7 @@ final class ConfiguracoesController extends TemplateController{
     /* Mostrando mensagem caso exista alguma */
     if($this->get_sessao()->has('mensagem_template')){
       $mensagem_template = $this->get_sessao()->get('mensagem_template');
+      $mensagem_template = esc($mensagem_template);
       $this->get_smarty()->assign('mensagem_template', $mensagem_template);
       $this->get_sessao()->remove('mensagem_template');
     }
@@ -103,6 +104,7 @@ final class ConfiguracoesController extends TemplateController{
     }
 
     $this->get_smarty()->assign('mostrar_configuracoes', $mostrar_configuracoes);
+    $mensagem = esc($mensagem);
     $this->get_smarty()->assign('mensagem_da_pagina', $mensagem);
     $this->get_smarty()->display('configuracoes/configuracoes.html');
     die;
@@ -243,7 +245,7 @@ final class ConfiguracoesController extends TemplateController{
     $pk_usuario = $this->get_usuario_logado()->get_pk_usuario();
 
     $array_resultado = $configuracoes_model->verifica_disponibilidade_de_nome_de_usuario($nome_de_usuario,
-      $pk_usuario);
+    $pk_usuario);
     if(isset($array_resultado['mensagem_do_model'])){
       $mensagem = $array_resultado['mensagem_do_model'];
       $retorno['mensagem_de_falha'] = $mensagem;

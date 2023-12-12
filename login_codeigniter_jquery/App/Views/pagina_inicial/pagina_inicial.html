@@ -2,10 +2,16 @@
 
 {block name=head_especifico}
 <link href="/css/{$visual_escolhido_template}/pagina_inicial.css" type="text/css" rel="stylesheet"/>
+<script src="/script/pagina_inicial/interacoes.js"></script>
 <title>Página Inicial</title>
 {/block}
 
 {block name=pagina_do_sistema}
+{if $mensagem_da_pagina}
+<div id="div_mensagem">
+  <span id="span_mensagem">{$mensagem_da_pagina}</span>
+</div>
+{/if}
 <div id="div_pagina_inicial">
   <h1 id="h1_titulo_da_pagina">
     <span>Página Inicial</span>

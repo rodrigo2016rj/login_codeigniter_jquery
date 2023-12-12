@@ -24,6 +24,7 @@ final class PerfilController extends TemplateController{
     /* Mostrando mensagem caso exista alguma */
     if($this->get_sessao()->has('mensagem_template')){
       $mensagem_template = $this->get_sessao()->get('mensagem_template');
+      $mensagem_template = esc($mensagem_template);
       $this->get_smarty()->assign('mensagem_template', $mensagem_template);
       $this->get_sessao()->remove('mensagem_template');
     }
@@ -120,7 +121,7 @@ final class PerfilController extends TemplateController{
       }
 
       if($nivel_do_tipo_do_usuario_logado <= $nivel_do_tipo_do_usuario_alvo ||
-        $nivel_do_tipo_do_usuario_logado <= 1){
+      $nivel_do_tipo_do_usuario_logado <= 1){
         $mostrar_link_editar_tipo_de_usuario = false;
       }
     }
@@ -132,6 +133,7 @@ final class PerfilController extends TemplateController{
     }
 
     $this->get_smarty()->assign('mostrar_link_editar_tipo_de_usuario', $mostrar_link_editar_tipo_de_usuario);
+    $mensagem = esc($mensagem);
     $this->get_smarty()->assign('mensagem_da_pagina', $mensagem);
     $this->get_smarty()->display('perfil/perfil.html');
     die;
