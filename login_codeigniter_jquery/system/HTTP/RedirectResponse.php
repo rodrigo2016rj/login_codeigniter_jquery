@@ -17,6 +17,8 @@ use Config\Services;
 
 /**
  * Handle a redirect response
+ *
+ * @see \CodeIgniter\HTTP\RedirectResponseTest
  */
 class RedirectResponse extends Response
 {
@@ -50,7 +52,7 @@ class RedirectResponse extends Response
      *
      * @throws HTTPException
      */
-    public function route(string $route, array $params = [], int $code = 302, string $method = 'auto')
+    public function route(string $route, array $params = [], ?int $code = null, string $method = 'auto')
     {
         $namedRoute = $route;
 

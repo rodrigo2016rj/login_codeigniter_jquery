@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use Smarty;
+use Smarty\Smarty;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -13,7 +13,7 @@ use DateTimeZone;
 use Exception;
 
 class TemplateController extends Controller{
-  private $smarty; //Armazena objeto do smarty.
+  private $smarty; //Armazena objeto do Smarty.
   private $sessao; //Armazena a sessão.
   private $usuario_logado; //Armazena informações do usuário logado.
 
@@ -24,6 +24,8 @@ class TemplateController extends Controller{
     $this->sessao = session();
 
     $this->smarty = new Smarty;
+    $this->smarty->setTemplateDir(APPPATH.'Views/');
+    $this->smarty->setCompileDir(APPPATH.'Views/views_cache_smarty/');
 
     /* Colocando valores iniciais nas variáveis do smarty para não ficarem undefined no HTML */
     $this->smarty->assign('pagina_template', '');

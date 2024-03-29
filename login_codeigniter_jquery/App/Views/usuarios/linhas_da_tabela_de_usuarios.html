@@ -1,7 +1,7 @@
-{foreach $usuarios as $usuario}
-  {if $usuario@iteration is odd by 1}<tr class="impar">{else}<tr class="par">{/if}
+{foreach $usuarios as $chave=>$usuario}
+  {if ($chave + 1) % 2 === 1}<tr class="impar">{else}<tr class="par">{/if}
     <td class="td_tudo" colspan="4">
-      <span>Nome: </span>
+      <span>Nome:</span>
       <a class="link_nome_de_usuario" 
          href="perfil?id={$usuario['id_do_usuario']}">{$usuario['nome_de_usuario']}</a>
       <br/>

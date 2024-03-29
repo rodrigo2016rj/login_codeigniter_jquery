@@ -30,8 +30,6 @@ use InvalidArgumentException;
  * Additional methods to make a PSR-7 Response class
  * compliant with the framework's own ResponseInterface.
  *
- * @property array $statusCodes
- *
  * @see https://github.com/php-fig/http-message/blob/master/src/ResponseInterface.php
  */
 trait ResponseTrait
@@ -158,13 +156,13 @@ trait ResponseTrait
         }
 
         // Unknown and no message?
-        if (! array_key_exists($code, static::$statusCodes) && empty($reason)) {
+        if (! array_key_exists($code, static::$statusCodes) && ($reason === '')) {
             throw HTTPException::forUnkownStatusCode($code);
         }
 
         $this->statusCode = $code;
 
-        $this->reason = ! empty($reason) ? $reason : static::$statusCodes[$code];
+        $this->reason = ($reason !== '') ? $reason : static::$statusCodes[$code];
 
         return $this;
     }
@@ -228,7 +226,7 @@ trait ResponseTrait
     public function setContentType(string $mime, string $charset = 'UTF-8')
     {
         // add charset attribute if not already there and provided as parm
-        if ((strpos($mime, 'charset=') < 1) && ! empty($charset)) {
+        if ((strpos($mime, 'charset=') < 1) && ($charset !== '')) {
             $mime .= '; charset=' . $charset;
         }
 
@@ -241,7 +239,7 @@ trait ResponseTrait
     /**
      * Converts the $body into JSON and sets the Content Type header.
      *
-     * @param array|string $body
+     * @param array|object|string $body
      *
      * @return $this
      */
@@ -306,10 +304,10 @@ trait ResponseTrait
      * Handles conversion of the data into the appropriate format,
      * and sets the correct Content-Type header for our response.
      *
-     * @param array|string $body
-     * @param string       $format Valid: json, xml
+     * @param array|object|string $body
+     * @param string              $format Valid: json, xml
      *
-     * @return mixed
+     * @return false|string
      *
      * @throws InvalidArgumentException If the body property is not string or array.
      */
@@ -379,7 +377,7 @@ trait ResponseTrait
      */
     public function setCache(array $options = [])
     {
-        if (empty($options)) {
+        if ($options === []) {
             return $this;
         }
 
@@ -496,8 +494,8 @@ trait ResponseTrait
     /**
      * Perform a redirect to a new URL, in two flavors: header or location.
      *
-     * @param string $uri  The URI to redirect to
-     * @param int    $code The type of redirection, defaults to 302
+     * @param string   $uri  The URI to redirect to
+     * @param int|null $code The type of redirection, defaults to 302
      *
      * @return $this
      *
@@ -505,20 +503,32 @@ trait ResponseTrait
      */
     public function redirect(string $uri, string $method = 'auto', ?int $code = null)
     {
-        // Assume 302 status code response; override if needed
-        if (empty($code)) {
-            $code = 302;
-        }
-
         // IIS environment likely? Use 'refresh' for better compatibility
-        if ($method === 'auto' && isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false) {
+        if (
+            $method === 'auto'
+            && isset($_SERVER['SERVER_SOFTWARE'])
+            && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false
+        ) {
             $method = 'refresh';
+        } elseif ($method !== 'refresh' && $code === null) {
+            // override status code for HTTP/1.1 & higher
+            if (
+                isset($_SERVER['SERVER_PROTOCOL'], $_SERVER['REQUEST_METHOD'])
+                && $this->getProtocolVersion() >= 1.1
+            ) {
+                if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                    $code = 302;
+                } elseif (in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'DELETE'], true)) {
+                    // reference: https://en.wikipedia.org/wiki/Post/Redirect/Get
+                    $code = 303;
+                } else {
+                    $code = 307;
+                }
+            }
         }
 
-        // override status code for HTTP/1.1 & higher
-        // reference: http://en.wikipedia.org/wiki/Post/Redirect/Get
-        if (isset($_SERVER['SERVER_PROTOCOL'], $_SERVER['REQUEST_METHOD']) && $this->getProtocolVersion() >= 1.1 && $method !== 'refresh') {
-            $code = ($_SERVER['REQUEST_METHOD'] !== 'GET') ? 303 : ($code === 302 ? 307 : $code);
+        if ($code === null) {
+            $code = 302;
         }
 
         switch ($method) {
@@ -572,7 +582,7 @@ trait ResponseTrait
         }
 
         /** @var CookieConfig|null $cookieConfig */
-        $cookieConfig = config('Cookie');
+        $cookieConfig = config(CookieConfig::class);
 
         if ($cookieConfig instanceof CookieConfig) {
             $secure ??= $cookieConfig->secure;
@@ -708,6 +718,8 @@ trait ResponseTrait
 
     /**
      * Actually sets the cookies.
+     *
+     * @return void
      */
     protected function sendCookies()
     {

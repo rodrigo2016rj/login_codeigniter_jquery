@@ -18,7 +18,7 @@ class Email extends BaseConfig{
   /* The server path to Sendmail. */
   public string $mailPath = '/usr/sbin/sendmail';
 
-  /* SMTP Server Address */
+  /* SMTP Server Hostname */
   public string $SMTPHost = 'sandbox.smtp.mailtrap.io'; //https://mailtrap.io
 
   /* SMTP Username */
@@ -36,7 +36,12 @@ class Email extends BaseConfig{
   /* Enable persistent SMTP connections */
   public bool $SMTPKeepAlive = false;
 
-  /* SMTP Encryption. Either tls or ssl */
+  /* SMTP Encryption. */
+  /*
+   * @var string '', 'tls' or 'ssl'. 'tls' will issue a STARTTLS command 
+   * to the server. 'ssl' means implicit SSL. Connection on port 465 
+   * should set this to ''.
+   */
   public string $SMTPCrypto = 'tls';
 
   /* Enable word-wrap */

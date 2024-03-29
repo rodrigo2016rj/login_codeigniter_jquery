@@ -40,7 +40,7 @@ class CellGenerator extends BaseCommand
      *
      * @var string
      */
-    protected $description = 'Generates a new Cell file and its view.';
+    protected $description = 'Generates a new Controlled Cell file and its view.';
 
     /**
      * The Command's Usage
@@ -52,20 +52,19 @@ class CellGenerator extends BaseCommand
     /**
      * The Command's Arguments
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $arguments = [
-        'name' => 'The cell class name.',
+        'name' => 'The Controlled Cell class name.',
     ];
 
     /**
      * The Command's Options
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $options = [
         '--namespace' => 'Set root namespace. Default: "APP_NAMESPACE".',
-        '--suffix'    => 'Append the component title to the class name (e.g. User => UserCell).',
         '--force'     => 'Force overwrite existing file.',
     ];
 
@@ -74,30 +73,26 @@ class CellGenerator extends BaseCommand
      */
     public function run(array $params)
     {
-        // Generate the Class first
-        $this->component     = 'Cell';
-        $this->directory     = 'Cells';
+        $this->component = 'Cell';
+        $this->directory = 'Cells';
+
+        $params = array_merge($params, ['suffix' => null]);
+
         $this->template      = 'cell.tpl.php';
         $this->classNameLang = 'CLI.generator.className.cell';
-
         $this->generateClass($params);
 
-        // Generate the View
+        $this->name          = 'make:cell_view';
+        $this->template      = 'cell_view.tpl.php';
         $this->classNameLang = 'CLI.generator.viewName.cell';
 
-        // Form the view name
-        $segments = explode('\\', $this->qualifyClassName());
+        $className = $this->qualifyClassName();
+        $viewName  = decamelize(class_basename($className));
+        $viewName  = preg_replace('/([a-z][a-z0-9_\/\\\\]+)(_cell)$/i', '$1', $viewName) ?? $viewName;
+        $namespace = substr($className, 0, strrpos($className, '\\') + 1);
 
-        $view = array_pop($segments);
-        $view = str_replace('Cell', '', decamelize($view));
-        if (strpos($view, '_cell') === false) {
-            $view .= '_cell';
-        }
-        $segments[] = $view;
-        $view       = implode('\\', $segments);
+        $this->generateView($namespace . $viewName, $params);
 
-        $this->template = 'cell_view.tpl.php';
-
-        $this->generateView($view, $params);
+        return 0;
     }
 }

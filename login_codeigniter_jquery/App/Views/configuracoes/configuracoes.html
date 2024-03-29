@@ -43,9 +43,9 @@
         </div>
         <div id="div_caixa_de_selecao_fuso_horario">
           <select id="caixa_de_selecao_fuso_horario" name="fuso_horario">
-            {foreach $fuso_horarios as $fuso_horario}
-              <option value="{$fuso_horario@key}" 
-                      {if $fuso_horario_atual == $fuso_horario@key}selected="selected"{/if}>{$fuso_horario}</option>
+            {foreach $fuso_horarios as $chave=>$fuso_horario}
+              <option value="{$chave}" 
+                      {if $fuso_horario_atual == $chave}selected="selected"{/if}>{$fuso_horario}</option>
             {/foreach}
           </select>
         </div>
@@ -57,9 +57,9 @@
         </div>
         <div id="div_caixa_de_selecao_visual">
           <select id="caixa_de_selecao_visual" name="visual">
-            {foreach $visuais as $visual}
-              <option value="{$visual@key}" 
-                      {if $visual_atual == $visual@key}selected="selected"{/if}>{$visual}</option>
+            {foreach $visuais as $chave=>$visual}
+              <option value="{$chave}" 
+                      {if $visual_atual == $chave}selected="selected"{/if}>{$visual}</option>
             {/foreach}
           </select>
         </div>

@@ -18,9 +18,9 @@ use CodeIgniter\Events\Events;
 use ErrorException;
 
 /**
- * @template TConnection of object|resource
- * @template TStatement of object|resource
- * @template TResult of object|resource
+ * @template TConnection
+ * @template TStatement
+ * @template TResult
  *
  * @implements PreparedQueryInterface<TConnection, TStatement, TResult>
  */
@@ -110,7 +110,7 @@ abstract class BasePreparedQuery implements PreparedQueryInterface
      * Takes a new set of data and runs it against the currently
      * prepared query. Upon success, will return a Results object.
      *
-     * @return bool|ResultInterface
+     * @return         bool|ResultInterface
      * @phpstan-return bool|ResultInterface<TConnection, TResult>
      *
      * @throws DatabaseException

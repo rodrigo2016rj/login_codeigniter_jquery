@@ -14,7 +14,7 @@ class Cookie extends BaseConfig
      *
      * Set a cookie name prefix if you need to avoid collisions.
      */
-    public string $prefix = '';
+    public string $prefix = 'login_codeigniter_jquery_';
 
     /**
      * --------------------------------------------------------------------------
@@ -45,7 +45,7 @@ class Cookie extends BaseConfig
      *
      * Set to `.your-domain.com` for site-wide cookies.
      */
-    public string $domain = '';
+    public string $domain = 'localhost';
 
     /**
      * --------------------------------------------------------------------------
@@ -84,6 +84,8 @@ class Cookie extends BaseConfig
      * Defaults to `Lax` for compatibility with modern browsers. Setting `''`
      * (empty string) means default SameSite attribute set by browsers (`Lax`)
      * will be set on cookies. If set to `None`, `$secure` must also be set.
+     *
+     * @phpstan-var 'None'|'Lax'|'Strict'|''
      */
     public string $samesite = 'Lax';
 
