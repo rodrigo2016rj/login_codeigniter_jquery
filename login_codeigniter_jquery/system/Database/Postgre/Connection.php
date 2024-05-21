@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -18,6 +20,7 @@ use ErrorException;
 use PgSql\Connection as PgSqlConnection;
 use PgSql\Result as PgSqlResult;
 use stdClass;
+use Stringable;
 
 /**
  * Connection for Postgre
@@ -65,6 +68,9 @@ class Connection extends BaseConnection
         }
 
         // Convert DSN string
+        // @TODO This format is for PDO_PGSQL.
+        //      https://www.php.net/manual/en/ref.pdo-pgsql.connection.php
+        //      Should deprecate?
         if (mb_strpos($this->DSN, 'pgsql:') === 0) {
             $this->convertDSN();
         }
@@ -228,12 +234,15 @@ class Connection extends BaseConnection
             $this->initialize();
         }
 
-        /** @psalm-suppress NoValue I don't know why ERROR. */
-        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
+        if ($str instanceof Stringable) {
             if ($str instanceof RawSql) {
                 return $str->__toString();
             }
 
+            $str = (string) $str;
+        }
+
+        if (is_string($str)) {
             return pg_escape_literal($this->connID, $str);
         }
 
@@ -241,7 +250,6 @@ class Connection extends BaseConnection
             return $str ? 'TRUE' : 'FALSE';
         }
 
-        /** @psalm-suppress NoValue I don't know why ERROR. */
         return parent::escape($str);
     }
 
@@ -294,7 +302,7 @@ class Connection extends BaseConnection
     /**
      * Returns an array of objects with field data
      *
-     * @return stdClass[]
+     * @return list<stdClass>
      *
      * @throws DatabaseException
      */
@@ -329,7 +337,7 @@ class Connection extends BaseConnection
     /**
      * Returns an array of objects with index data
      *
-     * @return stdClass[]
+     * @return array<string, stdClass>
      *
      * @throws DatabaseException
      */
@@ -353,10 +361,10 @@ class Connection extends BaseConnection
             $_fields     = explode(',', preg_replace('/^.*\((.+?)\)$/', '$1', trim($row->indexdef)));
             $obj->fields = array_map(static fn ($v) => trim($v), $_fields);
 
-            if (strpos($row->indexdef, 'CREATE UNIQUE INDEX pk') === 0) {
+            if (str_starts_with($row->indexdef, 'CREATE UNIQUE INDEX pk')) {
                 $obj->type = 'PRIMARY';
             } else {
-                $obj->type = (strpos($row->indexdef, 'CREATE UNIQUE') === 0) ? 'UNIQUE' : 'INDEX';
+                $obj->type = (str_starts_with($row->indexdef, 'CREATE UNIQUE')) ? 'UNIQUE' : 'INDEX';
             }
 
             $retVal[$obj->name] = $obj;
@@ -368,7 +376,7 @@ class Connection extends BaseConnection
     /**
      * Returns an array of objects with Foreign key data
      *
-     * @return stdClass[]
+     * @return array<string, stdClass>
      *
      * @throws DatabaseException
      */
@@ -493,7 +501,7 @@ class Connection extends BaseConnection
         }
 
         // If UNIX sockets are used, we shouldn't set a port
-        if (strpos($this->hostname, '/') !== false) {
+        if (str_contains($this->hostname, '/')) {
             $this->port = '';
         }
 
@@ -566,21 +574,5 @@ class Connection extends BaseConnection
     protected function _transRollback(): bool
     {
         return (bool) pg_query($this->connID, 'ROLLBACK');
-    }
-
-    /**
-     * Determines if a query is a "write" type.
-     *
-     * Overrides BaseConnection::isWriteType, adding additional read query types.
-     *
-     * @param string $sql
-     */
-    public function isWriteType($sql): bool
-    {
-        if (preg_match('#^(INSERT|UPDATE).*RETURNING\s.+(\,\s?.+)*$#is', $sql)) {
-            return false;
-        }
-
-        return parent::isWriteType($sql);
     }
 }

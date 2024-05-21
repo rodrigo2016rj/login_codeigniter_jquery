@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -96,7 +98,7 @@ class Table
 
         $prefix = $this->db->DBPrefix;
 
-        if (! empty($prefix) && strpos($table, $prefix) === 0) {
+        if (! empty($prefix) && str_starts_with($table, $prefix)) {
             $table = substr($table, strlen($prefix));
         }
 
@@ -280,7 +282,7 @@ class Table
     /**
      * Creates the new table based on our current fields.
      *
-     * @return mixed
+     * @return bool
      */
     protected function createTable()
     {
@@ -430,7 +432,7 @@ class Table
      */
     private function isIntegerType(string $type): bool
     {
-        return strpos(strtoupper($type), 'INT') !== false;
+        return str_contains(strtoupper($type), 'INT');
     }
 
     /**
@@ -449,16 +451,12 @@ class Table
      * Converts keys retrieved from the database to
      * the format needed to create later.
      *
-     * @param mixed $keys
+     * @param array<string, stdClass> $keys
      *
-     * @return mixed
+     * @return array<string, array{fields: string, type: string}>
      */
     protected function formatKeys($keys)
     {
-        if (! is_array($keys)) {
-            return $keys;
-        }
-
         $return = [];
 
         foreach ($keys as $name => $key) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -106,6 +108,8 @@ abstract class BaseCommand
     /**
      * Can be used by a command to run other commands.
      *
+     * @param array<int|string, string|null> $params
+     *
      * @return int|void
      *
      * @throws ReflectionException
@@ -138,7 +142,7 @@ abstract class BaseCommand
     {
         CLI::write(lang('CLI.helpUsage'), 'yellow');
 
-        if (! empty($this->usage)) {
+        if (isset($this->usage)) {
             $usage = $this->usage;
         } else {
             $usage = $this->name;
@@ -150,7 +154,7 @@ abstract class BaseCommand
 
         CLI::write($this->setPad($usage, 0, 0, 2));
 
-        if (! empty($this->description)) {
+        if (isset($this->description)) {
             CLI::newLine();
             CLI::write(lang('CLI.helpDescription'), 'yellow');
             CLI::write($this->setPad($this->description, 0, 0, 2));
@@ -192,6 +196,8 @@ abstract class BaseCommand
     /**
      * Get pad for $key => $value array output
      *
+     * @param array<string, string> $array
+     *
      * @deprecated Use setPad() instead.
      *
      * @codeCoverageIgnore
@@ -210,7 +216,7 @@ abstract class BaseCommand
     /**
      * Makes it simple to access our protected properties.
      *
-     * @return array|Commands|LoggerInterface|string|null
+     * @return array<string, string>|Commands|LoggerInterface|string|null
      */
     public function __get(string $key)
     {

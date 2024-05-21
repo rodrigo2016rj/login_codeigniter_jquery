@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -49,6 +51,25 @@ class Routes extends BaseCollector
     /**
      * Returns the data of this collector to be formatted in the toolbar
      *
+     * @return array{
+     *      matchedRoute: array<array{
+     *          directory: string,
+     *          controller: string,
+     *          method: string,
+     *          paramCount: int,
+     *          truePCount: int,
+     *          params: list<array{
+     *              name: string,
+     *              value: mixed
+     *          }>
+     *      }>,
+     *      routes: list<array{
+     *          method: string,
+     *          route: string,
+     *          handler: string
+     *      }>
+     * }
+     *
      * @throws ReflectionException
      */
     public function display(): array
@@ -63,10 +84,18 @@ class Routes extends BaseCollector
         } else {
             try {
                 $method = new ReflectionMethod($router->controllerName(), $router->methodName());
-            } catch (ReflectionException $e) {
-                // If we're here, the method doesn't exist
-                // and is likely calculated in _remap.
-                $method = new ReflectionMethod($router->controllerName(), '_remap');
+            } catch (ReflectionException) {
+                try {
+                    // If we're here, the method doesn't exist
+                    // and is likely calculated in _remap.
+                    $method = new ReflectionMethod($router->controllerName(), '_remap');
+                } catch (ReflectionException) {
+                    // If we're here, page cache is returned. The router is not executed.
+                    return [
+                        'matchedRoute' => [],
+                        'routes'       => [],
+                    ];
+                }
             }
         }
 

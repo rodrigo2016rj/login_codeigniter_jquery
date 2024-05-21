@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,12 +13,13 @@
 
 namespace CodeIgniter;
 
+use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
+use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Validation\Exceptions\ValidationException;
 use CodeIgniter\Validation\ValidationInterface;
-use Config\Services;
 use Config\Validation;
 use Psr\Log\LoggerInterface;
 
@@ -30,14 +33,14 @@ class Controller
     /**
      * Helpers that will be automatically loaded on class instantiation.
      *
-     * @var array
+     * @var list<string>
      */
     protected $helpers = [];
 
     /**
      * Instance of the main Request object.
      *
-     * @var RequestInterface
+     * @var CLIRequest|IncomingRequest
      */
     protected $request;
 
@@ -118,25 +121,7 @@ class Controller
      */
     protected function cachePage(int $time)
     {
-        Services::responsecache()->setTtl($time);
-    }
-
-    /**
-     * Handles "auto-loading" helper files.
-     *
-     * @deprecated Use `helper` function instead of using this method.
-     *
-     * @codeCoverageIgnore
-     *
-     * @return void
-     */
-    protected function loadHelpers()
-    {
-        if ($this->helpers === []) {
-            return;
-        }
-
-        helper($this->helpers);
+        service('responsecache')->setTtl($time);
     }
 
     /**
@@ -172,7 +157,7 @@ class Controller
      */
     private function setValidator($rules, array $messages): void
     {
-        $this->validator = Services::validation();
+        $this->validator = service('validation');
 
         // If you replace the $rules array with the name of the group
         if (is_string($rules)) {
@@ -185,7 +170,7 @@ class Controller
             }
 
             // If no error message is defined, use the error message in the Config\Validation file
-            if (! $messages) {
+            if ($messages === []) {
                 $errorName = $rules . '_errors';
                 $messages  = $validation->{$errorName} ?? [];
             }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -53,7 +55,7 @@ if (! function_exists('directory_map')) {
             closedir($fp);
 
             return $fileData;
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return [];
         }
     }
@@ -129,7 +131,7 @@ if (! function_exists('write_file')) {
             fclose($fp);
 
             return is_int($result);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return false;
         }
     }
@@ -178,7 +180,7 @@ if (! function_exists('delete_files')) {
             }
 
             return true;
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return false;
         }
     }
@@ -227,7 +229,7 @@ if (! function_exists('get_filenames')) {
                     }
                 }
             }
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return [];
         }
 
@@ -277,7 +279,7 @@ if (! function_exists('get_dir_file_info')) {
             closedir($fp);
 
             return $fileData;
-        } catch (Throwable $fe) {
+        } catch (Throwable) {
             return [];
         }
     }
@@ -379,19 +381,19 @@ if (! function_exists('symbolic_permissions')) {
         }
 
         // Owner
-        $symbolic .= (($perms & 0x0100) ? 'r' : '-')
-                . (($perms & 0x0080) ? 'w' : '-')
-                . (($perms & 0x0040) ? (($perms & 0x0800) ? 's' : 'x') : (($perms & 0x0800) ? 'S' : '-'));
+        $symbolic .= ((($perms & 0x0100) !== 0) ? 'r' : '-')
+                . ((($perms & 0x0080) !== 0) ? 'w' : '-')
+                . ((($perms & 0x0040) !== 0) ? ((($perms & 0x0800) !== 0) ? 's' : 'x') : ((($perms & 0x0800) !== 0) ? 'S' : '-'));
 
         // Group
-        $symbolic .= (($perms & 0x0020) ? 'r' : '-')
-                . (($perms & 0x0010) ? 'w' : '-')
-                . (($perms & 0x0008) ? (($perms & 0x0400) ? 's' : 'x') : (($perms & 0x0400) ? 'S' : '-'));
+        $symbolic .= ((($perms & 0x0020) !== 0) ? 'r' : '-')
+                . ((($perms & 0x0010) !== 0) ? 'w' : '-')
+                . ((($perms & 0x0008) !== 0) ? ((($perms & 0x0400) !== 0) ? 's' : 'x') : ((($perms & 0x0400) !== 0) ? 'S' : '-'));
 
         // World
-        $symbolic .= (($perms & 0x0004) ? 'r' : '-')
-                . (($perms & 0x0002) ? 'w' : '-')
-                . (($perms & 0x0001) ? (($perms & 0x0200) ? 't' : 'x') : (($perms & 0x0200) ? 'T' : '-'));
+        $symbolic .= ((($perms & 0x0004) !== 0) ? 'r' : '-')
+                . ((($perms & 0x0002) !== 0) ? 'w' : '-')
+                . ((($perms & 0x0001) !== 0) ? ((($perms & 0x0200) !== 0) ? 't' : 'x') : ((($perms & 0x0200) !== 0) ? 'T' : '-'));
 
         return $symbolic;
     }

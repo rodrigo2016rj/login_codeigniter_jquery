@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -26,7 +28,7 @@ class MockSession extends Session
     /**
      * Holds our "cookie" data.
      *
-     * @var Cookie[]
+     * @var list<Cookie>
      */
     public $cookies = [];
 
